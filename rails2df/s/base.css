@@ -1,0 +1,206 @@
+* {
+	padding: 0px;
+	margin: 0px;
+}
+
+html, body {
+	background-color: #214478;
+	height: 100%;
+}
+
+* html #mainWrapper {
+	height: 100%;
+}
+
+body {
+	background: transparent url(../g/gradient.png) repeat-x;
+	font-family: 'Tienne', serif;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+	border: none;
+	outline: none;
+	font-weight: bold;
+}
+
+a:focus, a:active, a:visited, a:hover {
+	border: none;
+	-moz-outline-style: none;
+	outline: none;
+}
+
+a img {
+	border: none;
+	outline: none;
+	-moz-outline-style: none;
+}
+
+h1 {
+	background-color: #a00;
+	font-size: 26px;
+	line-height: 26px;
+	padding: 5px;
+	color: #e6e6e6;
+	margin-bottom: 10px;
+}
+
+h2 {
+	font-size: 15pt;
+}
+
+.clearboth {
+	clear: both;
+}
+
+#socialWrapper {
+	padding-top: 20px;
+	clear: both;
+	float: right;
+}
+
+#social {
+	background-color: #fff;
+	padding: 0px 0px 10px 0px;
+	text-align: center
+}
+
+#social p {
+	font-size: 10pt;
+	margin-bottom: 4px;
+}
+
+.st_twitter_custom {
+	background: url("../g/twitter_24.png") no-repeat scroll left top transparent;
+	padding: 0px 24px 10px 10px;
+	cursor: pointer;
+}
+
+.st_googleplus_custom {
+	background: url("../g/googleplus_24.png") no-repeat scroll left top transparent;
+	padding: 0px 24px 10px 10px;
+	cursor: pointer;
+}
+
+.st_tumblr_custom {
+	background: url("../g/tumblr_24.png") no-repeat scroll left top transparent;
+	padding: 0px 24px 10px 0px;
+	cursor: pointer;
+}
+
+.st_facebook_custom {
+	background: url("../g/facebook_24.png") no-repeat scroll left top transparent;
+	padding: 0px 24px 10px 10px;
+	cursor: pointer;
+}
+
+#content p {
+	font-family: serif;
+     font-size: 11pt;
+     margin-bottom: 7px;
+}
+
+#footer {
+	background-color: #132745;
+	min-height: 30px;
+	text-align: center;
+	padding-top: 30px;
+}
+
+#designBy, #designBy a {
+	font-size: 8pt;
+	color: #aaa;
+}
+
+#sideNav {
+	width: 200px;
+	display: inline;
+	padding-right: 10px;
+	float: left;
+	text-align: center;
+}
+
+#sideNav ul {
+	float: right;
+	margin-top: 20px;
+}
+
+#sideNav li {
+	text-align: right;
+	list-style: none;
+	padding: 2px 0px;
+}
+
+#bodyWrapper {
+	padding: 30px 30px 0px 210px;
+}
+
+#content {
+	padding: 5px;
+	background-color: #fff;
+	min-height: 500px;
+}
+
+.leftCol, .rightCol {
+	display: block;
+	width: 48%;
+	float: left;
+}
+
+.caption_wrapper {
+	margin: 0 auto;
+	text-align: center;
+	height: 20px;
+	margin-top: -12px;
+}
+
+.caption {
+	display: inline-block;
+}
+
+.caption .left {
+	width: 9px;
+	background: transparent url(../g/caption_back.png) no-repeat left center;
+	height: 20px;
+	display: inline-block;
+	float: left;
+}
+
+.caption .right {
+	width: 9px;
+	background: transparent url(../g/caption_back.png) no-repeat right center;
+	height: 20px;
+	display: inline-block;
+	float: left;
+}
+
+.caption h2 {
+	line-height: 20px;
+	font-size: 17px;
+	color: #e6e6e6;
+}
+
+.caption .text {
+	background-color: #a00;
+	height: 20px;
+	display: inline-block;
+	float: left;
+	padding: 0 10px;
+	min-width: 100px;
+}
+
+.contentbox {
+	border: #ccc9c7 1px solid;
+	background-color: #e8eef7;
+	margin-top: 10px;
+	margin-bottom: 40px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.contentbox-content {
+	background-color: #fff;
+	padding: 10px;
+	margin: 0px 10px 10px 10px;
+}

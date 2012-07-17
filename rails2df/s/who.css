@@ -1,0 +1,23 @@
+.person {
+	margin: 20px 0px;
+	min-height: 135px;
+	display: block;
+	float: left;
+}
+
+.person img {
+	height: 120px;
+	width: 120px;
+	float: left;
+	margin-left: 10px;
+}
+
+.person p, .person h2 {
+	margin-left: 140px;
+}
+
+.person p {
+	font-family: serif;
+	font-size: 11pt;
+	margin-bottom: 7px;
+}

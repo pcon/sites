@@ -1,0 +1,10 @@
+#coverWrapper {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.cover {
+	width: 250px;
+	text-align: center;
+	margin: 0 auto;
+}

@@ -1,0 +1,7 @@
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script type="text/javascript" src="/j/detectmobilebrowser.js"></script>
+	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	<script type="text/javascript">stLight.options({publisher: "3d7104f6-f5e8-41e0-8f9f-d55948c8f9a8"}); </script>
+
+	<script type="text/javascript" src="/j/base.js"></script>
+	<script type="text/javascript" src="/j/ga.js"></script>

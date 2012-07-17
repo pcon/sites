@@ -1,0 +1,17 @@
+		<a href="/" alt="Rails To Dreamforce"><img src="/g/logo_300.png" width="200" height="200" alt="logo" /></a>
+		<ul>
+			<li><a href="/" alt="Home"><img id="home_img" src="/g/home.png" alt="Home" /></a></li>
+			<li><a href="/who" alt="Members"><img id="who_img" src="/g/members.png" alt="Members" /></a></li>
+			<li><a href="/sponsors" alt="Sponsors"><img id="sponsors_img" src="/g/sponsors.png" alt="Sponsors" /></a></li>
+<!--			<li><a href="/schedule" alt="Schedule"><img id="schedule_img" src="/g/schedule.png" alt="Schedule" /></a></li> -->
+<!--			<li><a href="/where" alt="Where are we?"><img id="where_img" src="/g/where.png" alt="Where are we?" /></a></li> -->
+			<li><a href="/join" alt="Join us"><img id="join_img" src="/g/join.png" alt="Join Us" /></a></li>
+			<li><a href="/about" alt="About"><img id="about_img" src="/g/about.png" alt="About" /></a></li>
+		</ul>
+		<div id="socialWrapper">
+			<a href="http://twitter.com/rails2df/" alt="Twitter"><img id="twitter" src="/g/twitter_24.png" alt="Twitter" /></a>
+			<a href="http://facebook.com/Rails2df" alt="Facebook"><img id="facebook" src="/g/facebook_24.png" alt="Facebook" /></a>
+			<a href="http://foursquare.com/rails2df" alt="Foursquare"><img id="foursquare" src="/g/foursquare_24.png" alt="Foursquare" /></a>
+			<a href="http://rails2df.tumblr.com/" alt="Tumblr"><img id="tumblr" src="/g/tumblr_24.png" alt="Tumblr" /></a>
+			<a href="http://dreamforce.com/" alt="Dreamforce"><img id="dreamforce" src="/g/dreamforce_24.png" alt="Dreamforce" /></a>
+		</div>

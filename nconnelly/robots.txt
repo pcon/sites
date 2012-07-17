@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /portfolio/storyboard-full-template.html
+Disallow: /portfolio/storyboard-small-template.html

@@ -1,0 +1,45 @@
+#mainWrapper {
+	width: 750px;
+	margin-top: 40px;
+}
+
+h2 {
+	font-size: 35px;
+}
+
+.section {
+	height: 175px;
+	line-height: 175px;
+}
+
+#storyboards {
+	padding-left: 100px;
+	margin-top: 30px;
+}
+
+#storyboards h2, #animation h2, #art h2, #photography h2 {
+	display: inline;
+}
+
+#art h2 {
+	float: left;
+	margin-left: -100px;
+}
+
+#animation h2, #photography h2 {
+	float: right;
+	margin-left: 10px;
+}
+
+#animation img, #photography img {
+	float: left;
+}
+
+#art {
+	margin-left: 150px;
+}
+
+#back {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}

@@ -1,0 +1,78 @@
+/* Image dimensions: 838w x 472h */
+
+#mainWrapper {
+	height: auto;
+	width: 1138px;
+}
+
+.tallButton {
+	display: inline-block;
+	width: 19px;
+	height: 770px;
+	line-height: 770px;
+	background-color: #000;
+}
+
+#prev {
+	float: left;
+}
+
+#prev img {
+	vertical-align: middle;
+}
+
+#next {
+	float: left;
+}
+
+#next img {
+	vertical-align: middle;
+}
+
+#comicWrapper {
+	padding-left: 311px;
+}
+
+#pageWrapper {
+	width: 477px;
+	background-color: #000;
+	float: left;
+}
+
+.page {
+	padding-top: 15px;
+	padding-bottom: 10px;
+	width: 477px;
+	float: left;
+	background-color: #000;
+	display: inline-block;
+}
+
+.first {
+}
+
+.sectionWrapper {
+	background-color: #fff;
+}
+
+.section {
+	height: 55px;
+	border: 2px solid #000;
+	border-right-width: 19px;
+	border-left-width: 19px;
+	border-bottom-width: 19px;
+}
+
+.panel {
+	width: 477px;
+	height: 738px;
+}
+
+.hidden {
+	display: none;
+}
+
+#back {
+	clear: both;
+	padding-top: 20px;
+}

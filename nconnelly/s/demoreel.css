@@ -1,0 +1,22 @@
+#videoWrapper {
+	text-align: center;
+	background-color: #000;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+#videoDesc {
+	width: 900px;
+	margin: 0 auto;
+	text-align: left;
+	color: #fff;
+	margin-top :15px;
+}
+
+#back {
+	margin-top: 20px;
+}
+
+#mainWrapper {
+	margin-bottom: 20px;
+}

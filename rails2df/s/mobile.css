@@ -1,0 +1,42 @@
+body {
+     background: none;
+     font-family: serif;
+	font-size: 100%;
+}
+
+#sideNav {
+	float: none;
+	width: auto;
+	display: block;
+	text-align: center;
+}
+
+#sideNav ul {
+	float: none;
+	display: inline-block;
+	margin-left: 10px;
+}
+
+#sideNav li {
+	text-align: center;
+}
+
+#socialWrapper {
+	display: none;
+}
+
+#social {
+	display: none;
+}
+
+#bodyWrapper {
+	padding: 0px;
+}
+
+#content p, #content ul {
+	font-size: 100%;
+}
+
+.leftCol, .rightCol {
+	width: 100%;
+}

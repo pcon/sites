@@ -1,0 +1,22 @@
+#pageDesc {
+	text-align: center;
+	margin: 20px 0px 60px 0px;
+	font-size: 13pt;
+}
+
+#content:first-child p {
+	margin-bottom: 25px;
+}
+
+#content p, #content ul {
+	font-family: serif;
+	font-size: 11pt;
+}
+
+#content ul {
+	margin-left: 25px;
+}
+
+.blurb {
+	margin-bottom: 10px;
+}
