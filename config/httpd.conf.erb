@@ -2,6 +2,9 @@
 	ServerAdmin <%= server_admin %>
 	DocumentRoot <%= document_root %>/
 	ServerName <%= server_name %>
+<% if @server_aliases -%><% server_aliases.each do |value| -%>
+	ServerAlias <%= value %>
+<% end -%><% end -%>
 	ErrorLog <%= error_log %>
 	CustomLog <%= access_log %> <%= access_log_level %>
 
