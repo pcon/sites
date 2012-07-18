@@ -1,0 +1,33 @@
+<VirtualHost *:80>
+	ServerAdmin <%= server_admin %>
+	DocumentRoot <%= document_root %>/
+	ServerName <%= server_name %>
+	ErrorLog <%= error_log %>
+	CustomLog <%= access_log %> <%= access_log_level %>
+
+	# Feed rewrites
+	RewriteEngine On
+	RewriteLog "<%= rewrite_log %>"
+	RewriteLogLevel <%= rewrite_log_level %>
+
+<% if @rewrite -%>
+<% rewrite.each_pair do |key, value_hash| -%>
+	RewriteCond <%= value_hash['condition'] %>
+	RewriteRule <%= value_hash['rule'] %>
+<% end -%>
+<% end -%>
+
+<% if @portfolio -%>
+<% portfolio.each_pair do |key, value_hash| -%>
+	RewriteRule ^/portfolio/<%= key %>(/)? /portfolio/gallery.php?title=<%= value_hash['title'] %>&setId=<%= value_hash['sid'] %>&nsId=<%= value_hash['nsid'] %> [P,L]
+<% end -%>
+<% end -%>
+
+<% if @aliases -%>
+<% aliases.each_pair do |key, value_hash| -%>
+	Alias <%= value_hash['root'] %>/ "<%= value_hash['file'] %>"
+	Alias <%= value_hash['root'] %> "<%= value_hash['file'] %>"
+<% end -%>
+<% end -%>
+
+</VirtualHost>
