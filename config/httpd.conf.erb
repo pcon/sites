@@ -10,24 +10,19 @@
 	RewriteLog "<%= rewrite_log %>"
 	RewriteLogLevel <%= rewrite_log_level %>
 
-<% if @rewrite -%>
-<% rewrite.each_pair do |key, value_hash| -%>
+<% if @rewrite -%><% rewrite.each_pair do |key, value_hash| -%>
 	RewriteCond <%= value_hash['condition'] %>
 	RewriteRule <%= value_hash['rule'] %>
-<% end -%>
-<% end -%>
-
+<% end -%><% end -%>
 <% if @portfolio -%>
 <% portfolio.each_pair do |key, value_hash| -%>
 	RewriteRule ^/portfolio/<%= key %>(/)? /portfolio/gallery.php?title=<%= value_hash['title'] %>&setId=<%= value_hash['sid'] %>&nsId=<%= value_hash['nsid'] %> [P,L]
-<% end -%>
-<% end -%>
-
+<% end -%><% end -%>
 <% if @aliases -%>
 <% aliases.each_pair do |key, value_hash| -%>
+
 	Alias <%= value_hash['root'] %>/ "<%= value_hash['file'] %>"
 	Alias <%= value_hash['root'] %> "<%= value_hash['file'] %>"
 <% end -%>
 <% end -%>
-
 </VirtualHost>
