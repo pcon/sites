@@ -42,8 +42,11 @@ a img {
 	margin: 0 auto;
 }
 
-.nathanPic {
+#nathanPic {
 	background: url(../g/nathan.png) bottom right no-repeat;
+	width: 1000px;
+	height: 700px;
+	margin: 0 auto;
 }
 
 .coloredText {
