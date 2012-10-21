@@ -1,0 +1,17 @@
+{
+	"_id": "us-ma-boston",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5493377799724507649?alt=json-in-script&kind=photo&authkey=Gv1sRgCL3S0bmdh_29kwE&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Boston",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/#ma",
+		 "name": "massachusetts"},
+		{"url": "/places/us/ma/boston/",
+		 "name": "boston"}
+	]
+}

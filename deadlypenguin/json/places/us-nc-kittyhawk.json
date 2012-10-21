@@ -1,0 +1,17 @@
+{
+	"_id": "us-nc-kittyhawk",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5617765511446786769?alt=json-in-script&kind=photo&authkey=Gv1sRgCLSFvuf1l_Ddbw&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Kitty Hawk",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/#nc",
+		 "name": "north carolina"},
+		{"url": "/places/us/nc/kittyhawk/",
+		 "name": "kittyhawk"}
+	]
+}

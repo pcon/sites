@@ -1,0 +1,15 @@
+{
+	"_id": "us-pa",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5483146942473848081?alt=json-in-script&kind=photo&authkey=Gv1sRgCInni_yj7_30Rg&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Philadelphia",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/us/pa/",
+		 "name": "philadelphia"}
+	]
+}

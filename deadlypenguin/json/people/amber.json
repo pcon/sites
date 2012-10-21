@@ -1,0 +1,14 @@
+{
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5638316591739829025?alt=json-in-script&kind=photo&authkey=Gv1sRgCIvN08TOw_uYGw&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Amber",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/people/",
+		 "name": "people"},
+		{"url": "/people/amber/",
+		 "name": "amber"}
+	]
+}

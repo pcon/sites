@@ -1,0 +1,17 @@
+{
+	"_id": "us-va-richmond",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5493390426914324337?alt=json-in-script&kind=photo&authkey=Gv1sRgCJf2_rrs4sCeSw&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Richmond",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/#va",
+		 "name": "virginia"},
+		{"url": "/places/us/va/richmond/",
+		 "name": "richmond"}
+	]
+}

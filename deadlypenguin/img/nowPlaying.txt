@@ -1,0 +1,17 @@
+isPlaying: false
+status: 1
+repeatTrack: false
+repeatPlaylist: false
+randomMode: true
+artist: Three Days Grace
+title: Let You Down
+track: 6
+album: Three Days Grace
+length: 3:46
+genre: Other
+year: 0
+comment: 
+bitrate: 128
+samplerate: 44100
+cover: /home/pcon/.kde/share/apps/amarok/albumcovers/cache/130@fea606d38bc45777ec8c4b9842b55345
+score: 0.000000
