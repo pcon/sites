@@ -1,0 +1,14 @@
+{
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5665302939201536321?alt=json-in-script&kind=photo&authkey=Gv1sRgCLvvv5eXhN6PLg&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Work",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/people/",
+		 "name": "people"},
+		{"url": "/people/work/",
+		 "name": "work"}
+	]
+}

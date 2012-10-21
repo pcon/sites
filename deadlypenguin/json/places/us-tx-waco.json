@@ -1,0 +1,17 @@
+{
+	"_id": "us-tx-waco",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5493397476715165073?alt=json-in-script&kind=photo&authkey=Gv1sRgCL3IgpGg7aji6wE&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Waco",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/#tx",
+		 "name": "texas"},
+		{"url": "/places/us/tx/waco/",
+		 "name": "waco"}
+	]
+}

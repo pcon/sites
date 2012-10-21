@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:2.1
+FN:Patrick Connelly
+N:Connelly;Patrick;;;
+BDAY:1984-06-17
+ADR;DOM:;;1108 Stoneferry Ln;Raleigh;NC;27606;UNITED STATES
+TEL;PREF;CELL:9192000764
+EMAIL;INTERNET:patrick@deadlypenguin.com
+URL:http\://www.deadlypenguin.com
+UID:7069fbae96000fb275fd42deedb44948
+REV:2010-02-18T18\:34\:16Z
+X-GENERATOR:vCardMaker 1.0.1 (http://vcardmaker.wackomenace.co.uk/)
+END:VCARD

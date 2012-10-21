@@ -1,0 +1,15 @@
+{
+	"_id": "bahamas",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5716624271754351537?alt=json-in-script&kind=photo&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Bahamas",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/bahamas/",
+		 "name": "bahamas"}
+	]
+}

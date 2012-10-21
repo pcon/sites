@@ -1,0 +1,19 @@
+#wrapper {
+     height: auto;
+     min-height: 450px;
+}
+
+#photo {
+	width: 300px;
+	float: left;
+}
+
+#photo img {
+	border: 4px solid #fff;
+}
+
+#about {
+	color: #aaa;
+	position: relative;
+	margin-left: 310px;
+}

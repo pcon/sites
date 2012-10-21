@@ -1,0 +1,15 @@
+{"categories": [
+	{
+		"id": "1",
+		"name": "Clothing"
+	},{
+		"id": "3",
+		"name": "Toiletries"
+	},{
+		"id": "2",
+		"name": "Electronics"
+	},{
+		"id": "4",
+		"name": "Other"
+	}
+]}

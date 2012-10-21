@@ -1,0 +1,17 @@
+{
+	"_id": "us-fl-orlando",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5720957209097235361?alt=json-in-script&kind=photo&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Orlando",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/#fl",
+		 "name": "florida"},
+		{"url": "/places/us/fl/orlando/",
+		 "name": "orlando"}
+	]
+}

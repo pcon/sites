@@ -1,0 +1,15 @@
+{
+	"_id": "us-or",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5493085857958708273?alt=json-in-script&kind=photo&authkey=Gv1sRgCLz_p-_P37bJGw&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Oregon",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/us/or/",
+		 "name": "oregon"}
+	]
+}

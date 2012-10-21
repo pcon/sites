@@ -1,0 +1,27 @@
+.ui-icon-wrench, .ui-icon-close, #sidebar {
+	display: none;
+}
+
+#content {
+	width: 100%;
+	margin: 0;
+}
+
+.item {
+	margin-left: 20px;
+	list-style-image: url('/img/checkbox.png');
+}
+
+.ui-widget-content {
+	border: none;
+	background: none;
+}
+
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
+	opacity: 1;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+	border: none;
+	background: none;
+}

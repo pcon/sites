@@ -1,0 +1,17 @@
+{
+	"_id": "us-va-mountrogers",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5493086045901767937?alt=json-in-script&kind=photo&authkey=Gv1sRgCMyYyOGf6MvJlwE&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Mount Rogers",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/#va",
+		 "name": "virginia"},
+		{"url": "/places/us/va/mountrogers/",
+		 "name": "mount rogers"}
+	]
+}
