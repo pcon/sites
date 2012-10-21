@@ -1,0 +1,15 @@
+{
+	"_id": "us-ca",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5648982417017663089?alt=json-in-script&kind=photo&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "San Francisco",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/us/ca/",
+		 "name": "san francisco"}
+	]
+}

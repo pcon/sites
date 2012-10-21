@@ -1,0 +1,10 @@
+{
+	"url": "",
+	"type": "json",
+	"source": "picasa",
+	"title": "",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+	]
+}

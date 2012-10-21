@@ -1,0 +1,17 @@
+{
+	"_id": "us-fl-jacksonville",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5493387004568061185?alt=json-in-script&kind=photo&authkey=Gv1sRgCKnQ89iNzYO6cA&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Jacksonville",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/#fl",
+		 "name": "florida"},
+		{"url": "/places/us/fl/jacksonville/",
+		 "name": "jacksonville"}
+	]
+}

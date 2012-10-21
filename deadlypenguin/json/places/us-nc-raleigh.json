@@ -1,0 +1,17 @@
+{
+	"_id": "us-nc-raleigh",
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5493388589632784881?alt=json-in-script&kind=photo&authkey=Gv1sRgCJnZmqqXu72IjwE&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Raleigh",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/places/",
+		 "name": "places"},
+		{"url": "/places/#nc",
+		 "name": "north carolina"},
+		{"url": "/places/us/nc/raleigh/",
+		 "name": "raleigh"}
+	]
+}

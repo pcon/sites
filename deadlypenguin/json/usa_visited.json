@@ -1,0 +1,72 @@
+{
+	"_id": "usa_visited",
+"places": [
+	{
+		"id": "bs",
+		"url": "/places/bahamas/"
+	},
+	{
+		"id": "us_PA",
+		"url": "/places/us/pa/"
+	},
+	{
+		"id": "us_DC",
+		"url": "/places/us/dc/"
+	},
+	{
+		"id": "us_MA",
+		"url": "/places/us/ma/"
+	},
+	{
+		"id": "us_WA",
+		"url": "/places/us/wa/"
+	},
+	{
+		"id": "us_OR",
+		"url": "/places/us/or/"
+	},
+	{
+		"id": "us_VA",
+		"url": "/places/us/va/"
+	},
+	{
+		"id": "us_NC",
+		"url": "/places/us/nc/"
+	},
+	{
+		"id": "us_TN",
+		"url": "/places/us/tn/"
+	},
+	{
+		"id": "us_SC",
+		"url": "/places/us/sc/"
+	},
+	{
+		"id": "us_GA",
+		"url": "/places/us/ga/"
+	},
+	{
+		"id": "us_FL",
+		"url": "/places/us/fl/"
+	},
+	{
+		"id": "us_OK",
+		"url": "/places/us/ok/"
+	},
+	{
+		"id": "us_CA",
+		"url": "/places/us/ca/"
+	},
+	{
+		"id": "us_OH",
+		"url": "/places/us/oh/"
+	},
+	{
+		"id": "us_MI",
+		"url": "/places/us/mi/"
+	},
+	{
+		"id": "us_TX",
+		"url": "/places/us/tx/"
+	}
+]}

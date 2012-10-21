@@ -1,0 +1,28 @@
+{"sites": [
+	{"name": "Practical Survior",
+	"id": "practicalSurvivor",
+	"card": "https://lh4.googleusercontent.com/_rv96CE1pup8/TVxM39wM65I/AAAAAAAADtc/nvhPmR7ONdU/practicalSurvivor-card.png",
+	"screenshot": "http://lh4.ggpht.com/_rv96CE1pup8/TNWYgYKV3YI/AAAAAAAAC6c/_XfsUnG1StM/practicalSurvivor.jpg",
+	"images": [
+	]},
+	{"name": "Goldsboro Dance Studio",
+	"id": "goldsboroDanceStudio",
+	"card": "https://lh6.googleusercontent.com/_rv96CE1pup8/TVxM316mQNI/AAAAAAAADtY/BB4w7m7NUYs/goldsboroDance-card.png",
+	"screenshot": "http://lh6.ggpht.com/_rv96CE1pup8/TNWYfleSsYI/AAAAAAAAC6Y/A1VnJJEAPDE/goldsboroDanceStudio.jpg",
+	"images": []},
+	{"name": "Triangle Beats",
+	"id": "trianglebeats",
+	"card": "https://lh3.googleusercontent.com/_rv96CE1pup8/TVxLSopoDBI/AAAAAAAADsw/jcjlVxndFR0/triangleBeats-card.png",
+	"screenshot": "https://lh3.googleusercontent.com/_rv96CE1pup8/TVxKBHYKKkI/AAAAAAAADss/-PefFO46Yp8/triangle.png",
+	"images": []},
+	{"name": "Bleudazi Creates",
+	"id": "bleudaziCreates",
+	"card": "https://lh3.googleusercontent.com/_rv96CE1pup8/TVxM3p3kcOI/AAAAAAAADtU/Q8dF-dGRAw0/bleuDaziCreates-card.png",
+	"screenshot": "http://lh3.ggpht.com/_rv96CE1pup8/TNWYenpH5vI/AAAAAAAAC6U/wGhH_xBLdlc/bleudaziCreates.jpg",
+	"images": []},
+	{"name": "Virtual Supp Serv",
+	"id": "virtualSuppServ",
+	"card": "https://lh3.googleusercontent.com/_rv96CE1pup8/TVxM375TmsI/AAAAAAAADtg/UoBAZ2se2UY/virtSuppServ-card.png",
+	"screenshot": "http://lh6.ggpht.com/_rv96CE1pup8/TNWYhXJ3NeI/AAAAAAAAC6g/yS2wfiLbj84/virtualSuppServ.jpg", 
+	"images": []}
+]}

@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /flux
+Disallow: /pictures
+Disallow: /photos
+Disallow: /music
+Disallow: /mybb
+Disallow: /horror
+Disallow: /kimberly
+Disallow: /gallery
+Disallow: /woodbadge
+Disallow: /zussa
+Disallow: /random

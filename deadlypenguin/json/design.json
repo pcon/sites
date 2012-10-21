@@ -1,0 +1,24 @@
+{"sites": [
+	{"name": "Practical Survior",
+	"id": "practicalSurvivor",
+	"card": "http://lh6.ggpht.com/_rv96CE1pup8/TNWe53mt4gI/AAAAAAAAC7M/mgfMgNkRfBE/practicalSurvivorLogo-card.png",
+	"screenshot": "http://lh3.ggpht.com/_rv96CE1pup8/TNWbBpe_EnI/AAAAAAAAC7A/vVWduRoJ2P8/practicalSurvivorLogo.png",
+	"images": []},
+	{"name": "Pillars",
+	"id": "pillars",
+	"card": "http://lh3.ggpht.com/_rv96CE1pup8/TNWdLP0FVLI/AAAAAAAAC7E/Y9lvn_itIG4/practicalSurvivorPillars-card.png",
+	"screenshot": "http://lh4.ggpht.com/_rv96CE1pup8/TNWdMtq4m5I/AAAAAAAAC7I/oG-ijc4OtWs/practicalSurvivorPillars.png",
+	"images": []},
+	{"name": "SignalFest Classic Rave",
+	"id": "signalRave",
+	"card": "http://lh4.ggpht.com/_rv96CE1pup8/TNWgXJdebyI/AAAAAAAAC7o/kppdbz2gzl0/signalFestRave-card.png",
+	"screenshot": "http://lh3.ggpht.com/_rv96CE1pup8/TNWggycef3I/AAAAAAAAC7w/pV-Gs7h6nZo/s640/OldSchool_color.png",
+	"images": [
+		{"url": "http://lh6.ggpht.com/_rv96CE1pup8/TNWgjsHmQDI/AAAAAAAAC74/zc3ZBDxkHxo/s912/OldSchoolLandscape_color.png",
+		 "desc": "Full color landscape"},
+		{"url": "http://lh5.ggpht.com/_rv96CE1pup8/TNWgfw7kqfI/AAAAAAAAC7s/DgUXFaL342s/s640/OldSchool_bw.png",
+		 "desc": "Black and white portrait"},
+		{"url": "http://lh6.ggpht.com/_rv96CE1pup8/TNWgiTkPERI/AAAAAAAAC70/yJKZGTtngHY/s912/OldSchoolLandscape_bw.png",
+		 "desc": "Black and white landscape"}
+	]}
+]}

@@ -1,0 +1,14 @@
+{
+	"url": "http://picasaweb.google.com/data/feed/base/user/grepsy/albumid/5489351691589005521?alt=json-in-script&kind=photo&authkey=Gv1sRgCqWJ5J2Pj4qS4AE&hl=en_US",
+	"type": "json",
+	"source": "picasa",
+	"title": "Jenny Wedding",
+	"breadcrumb": [
+		{"url": "/",
+		 "name": "home"},
+		{"url": "/people/",
+		 "name": "people"},
+		{"url": "/gallery/people/jenny/wedding/",
+		 "name": "Jenny wedding"}
+	]
+}

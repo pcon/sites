@@ -1,0 +1,47 @@
+.coverImage {
+	border-width: 8px;
+	border-color: #fff;
+	border-style: solid;
+	height: 400px;
+	width: 598px;
+	float: right;
+	margin-right: 143px;
+}
+
+#wrapper {
+	text-align: center;
+}
+
+#navigationWrapper {
+	margin: 0px auto;
+	width: 615px;
+}
+
+#navigation {
+	display: inline-block;
+	margin: 0px;
+	padding: 0px;
+}
+
+#navigation ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+#navigation li {
+	display: inline-block;
+	margin: 0px;
+	padding: 0px;
+	width: 99px;
+	text-align: center;
+	line-height: 20px;
+}
+
+#navigation li a {
+	font-size: 16pt;
+}
+
+#logo {
+	top: 380px;
+	left: 30px;
+}
