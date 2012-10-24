@@ -19,7 +19,7 @@
 <% end -%><% end -%>
 <% if @portfolio -%>
 <% portfolio.each_pair do |key, value_hash| -%>
-	RewriteRule ^/portfolio/<%= key %>(/)? /portfolio/gallery.php?title=<%= value_hash['title'] %>&setId=<%= value_hash['sid'] %>&nsId=<%= value_hash['nsid'] %> [P,L]
+	RewriteRule ^/portfolio(/)? /gallery.php?title=<%= value_hash['title'] %>&setId=<%= value_hash['sid'] %>&nsId=<%= value_hash['nsid'] %> [P,L]
 <% end -%><% end -%>
 <% if @aliases -%>
 <% aliases.sort_by {|key, value| key}.each do |key, value_hash| -%>
