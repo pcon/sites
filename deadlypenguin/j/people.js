@@ -79,10 +79,6 @@ function listPeople(people) {
 }
 
 $(document).ready(function() {
-//	if (!isMobile.any()) {
-		setupMobile();
-//	} 
-
 	jQuery.ajax({
 		url: 'http://people.deadlypenguin.com/_all_docs?include_docs=true',
 		dataType: 'jsonp',
