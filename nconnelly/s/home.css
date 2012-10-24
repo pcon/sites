@@ -1,0 +1,47 @@
+html {
+	background: #93a28c url(/g/main_bg.png) top center no-repeat;
+}
+
+#wrapper {
+	min-width: 1000px;
+	max-width: 1000px;
+	width: 1000px;
+	margin: 0 auto;
+	margin-top: 300px;
+}
+
+#sideNav {
+	margin-top: 25px;
+	width: 550px;
+}
+
+#sideNav ul {
+	list-style: none;
+	margin-top: 30px;
+	margin-left: 200px;
+	font-weight: bold;
+}
+
+#portfolio {
+	font-size: 70px;
+}
+
+#demoreel {
+	font-size: 55px;
+}
+
+#blogLink {
+	height: 65px;
+	line-height: 65px;
+	padding-left: 75px;
+	background: transparent url(/g/blog.png) left center no-repeat;
+	font-size: 35px;
+}
+
+#emailLink {
+	height: 65px;
+	line-height: 65px;
+	padding-left: 75px;
+	background: transparent url(/g/email.png) left center no-repeat;
+	font-size: 35px;
+}
