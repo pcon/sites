@@ -4,8 +4,8 @@
 }
 
 html {
-		background-color: #425581;
-		font-family: 'Cantarell', Futura, 'Liberation Sans', Arial, sans-serif;
+	background: #989589 url(/g/site_bg.png) top center no-repeat;
+	font-family: 'Cantarell', Futura, 'Liberation Sans', Arial, sans-serif;
 }
 
 a {  
@@ -36,21 +36,8 @@ a img {
 	clear: both;
 }
 
-#mainWrapper {
-	width: 1100px;
-	height: 750px;
-	margin: 0 auto;
-}
-
-#nathanPic {
-	background: url(../g/nathan.png) bottom right no-repeat;
-	width: 1000px;
-	height: 700px;
-	margin: 0 auto;
-}
-
 .coloredText {
-	color: #ffa800;
+	color: #3b3728;
 }
 
 .whiteText {
@@ -69,70 +56,8 @@ a img {
 	text-align: right;
 }
 
-#hName {
-	margin-top: 20px;
-	font-size: 75px;
-}
-
-#pName {
-	margin-top: 20px;
-	font-size: 60px;
-}
-
-#pSubName {
-	font-size: 30px;
-	margin-bottom: 10px;
-}
-
-#hDesc {
-	margin-top: 10px;
-	font-size: 40px;
-}
-
-#sideNav {
-	margin-top: 25px;
-	width: 550px;
-}
-
-#sideNav ul {
-	list-style: none;
-	margin-top: 50px;
-	margin-left: 200px;
-}
-
-#portfolio {
-	font-size: 50px;
-}
-
-#comics {
-	font-size: 40px;
-	margin-top: 5px;
-}
-
-#demoreel {
-	font-size: 40px;
-}
-
-#blogLink {
-	height: 65px;
-	line-height: 65px;
-	padding-left: 70px;
-	background: transparent url(../g/blog.png) left center no-repeat;
-	font-size: 30px;
-}
-
-#twitterLink {
-	height: 65px;
-	line-height: 65px;
-	padding-left: 70px;
-	background: transparent url(../g/twitter.png) left center no-repeat;
-	font-size: 30px;
-}
-
-#emailLink {
-	height: 65px;
-	line-height: 65px;
-	padding-left: 70px;
-	background: transparent url(../g/email.png) left center no-repeat;
-	font-size: 30px;
+#mainWrapper {
+	width: 1000px;
+	margin: 0 auto;
+	margin-top: 225px;
 }
