@@ -34,11 +34,7 @@ function buildDataSet(data) {
 	});
 	output.sort(function(a,b) { return parseInt(a.sort) - parseInt(b.sort)  } );
 
-//	if (!isMobile.any()) {
-		listPeopleMobile(output);
-//	} else {
-//		listPeople(output);
-//	}
+	listPeople(output);
 }
 
 function listPeopleMobile(people) {
