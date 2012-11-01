@@ -46,8 +46,8 @@ $(document).ready(function() {
 
 	galleryJSON = 'http://' + parts[1] + '.deadlypenguin.com/'
 	first=true;
-	for (i = 2; i < parts.length-1; i++) {
-		if (!first) {
+	for (i = 2; i < parts.length; i++) {
+		if (!first && parts[i] != "") {
 			galleryJSON = galleryJSON + '-';
 		}
 		first = false;
@@ -58,11 +58,7 @@ $(document).ready(function() {
 		url: galleryJSON,
 		success: parseCloudantFeed,
 		dataType: 'jsonp',
-		error: function(jqXHR, textStatus, errorThrown) { console.log('fail'); }
 	});
-
-	request.error(function() { console.log('whoops'); });
-	request.fail(function() { console.log('yay'); });
 });
 
 function showBadGallery(jqXHR, textStatus) {
