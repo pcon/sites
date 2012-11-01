@@ -1,3 +1,46 @@
+// fn to handle jsonp with timeouts and errors
+// hat tip to Ricardo Tomasi for the timeout logic
+$.getJSONP = function(s) {
+	s.dataType = 'jsonp';
+	$.ajax(s);
+
+	// figure out what the callback fn is
+	var $script = $(document.getElementsByTagName('head')[0].firstChild);
+	var url = $script.attr('src') || '';
+	var cb = (url.match(/callback=(\w+)/)||[])[1];
+	if (!cb)
+		return; // bail
+	var t = 0, cbFn = window[cb];
+
+	$script[0].onerror = function(e) {
+		$script.remove();
+		handleError(s, {}, "error", e);
+		clearTimeout(t);
+	};
+
+	if (!s.timeout)
+		return;
+
+	window[cb] = function(json) {
+		clearTimeout(t);
+		cbFn(json);
+		cbFn = null;
+	};
+
+	t = setTimeout(function() {
+		$script.remove();
+		handleError(s, {}, "timeout");
+		if (cbFn)
+			window[cb] = function(){};
+	}, s.timeout);
+	
+	function handleError(s, o, msg, e) {
+		// support jquery versions before and after 1.4.3
+		//($.ajax.handleError || $.handleError)(s, o, msg, e);
+		showBadGallery(e,msg);
+	}
+};
+
 function getParam(name) {
 	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
 	var regexS = "[\\#&\?]"+name+"=([^&#]*)";
@@ -54,7 +97,7 @@ $(document).ready(function() {
 		galleryJSON = galleryJSON + parts[i];
 	}
 
-	var request = jQuery.ajax({
+	var request = jQuery.getJSONP({
 		url: galleryJSON,
 		success: parseCloudantFeed,
 		dataType: 'jsonp',
@@ -62,10 +105,14 @@ $(document).ready(function() {
 });
 
 function showBadGallery(jqXHR, textStatus) {
-	jQuery.getJSON('http://www.deadlypenguin.com/json/static.json', function(data) {
-		var badPenguinImage = data.badPenguinImage;
-		jQuery('#galleria').css('text-align', 'center');
-		jQuery('#galleria').append('<img src="'+badPenguinImage+'" alt="404" title="404" width=350 height=350/><p>The gallery you have requested can not be found.');
+	jQuery.getJSONP({
+		url: 'http://db.deadlypenguin.com/static/root',
+		dataType: 'jsonp',
+		success: function(data) {
+			var badPenguinImage = data.data.badPenguinImage;
+			jQuery('#gallery').css('text-align', 'center');
+			jQuery('#gallery').append('<img src="'+badPenguinImage+'" alt="404" title="404" width=350 height=350/><p>The gallery you have requested can not be found.');
+		}
 	});
 }
 
