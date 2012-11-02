@@ -1,3 +1,17 @@
+function loggly(data) {
+	var key = '11996c63-1738-422f-bcc2-7271e9411260'
+	var url = 'http://logs.loggly.com/inputs/'+key+'.gif';
+	var params = '?';
+
+	for (var key in data) {
+		params += key+"="+encodeURIComponent(data[key])+"&";
+	}
+
+	var full_url = url + params.substr(0, params.length-1);
+
+	jQuery('body').append('<img src="'+full_url+'" />');
+}
+
 // fn to handle jsonp with timeouts and errors
 // hat tip to Ricardo Tomasi for the timeout logic
 $.getJSONP = function(s) {
@@ -35,9 +49,14 @@ $.getJSONP = function(s) {
 	}, s.timeout);
 	
 	function handleError(s, o, msg, e) {
-		// support jquery versions before and after 1.4.3
-		//($.ajax.handleError || $.handleError)(s, o, msg, e);
 		showBadGallery(e,msg);
+
+		loggly({
+			url:window.location.href,
+			galleryUrl: s.url,
+			previousPage: document.referrer,
+			StatusCode: 404
+		});
 	}
 };
 
