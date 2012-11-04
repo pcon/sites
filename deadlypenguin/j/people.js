@@ -23,18 +23,7 @@ var isMobile = {
 };
 
 function buildDataSet(data) {
-	var output;
-
-	output = new Array();
-
-	jQuery.each(data.rows, function(i, item) {
-		if (item.doc.sort != -1) {
-			output.push(item.doc);
-		}
-	});
-	output.sort(function(a,b) { return parseInt(a.sort) - parseInt(b.sort)  } );
-
-	listPeople(output);
+	listPeople(data);
 }
 
 function listPeopleMobile(people) {
@@ -42,9 +31,10 @@ function listPeopleMobile(people) {
 	jQuery('#content').trigger('create');
 }
 
-function listPeople(people) {
+function listPeople(data) {
 	var html = '';
-	$.each(people, function(i,item) {
+	jQuery.each(data.rows, function(i,doc) {
+		var item = doc.value;
 		var url = '/people/' + item._id.replace('-', '/') + '/';
 
 		if (i % 3 == 0) {
@@ -80,7 +70,7 @@ function listPeople(people) {
 
 $(document).ready(function() {
 	jQuery.ajax({
-		url: 'http://people.deadlypenguin.com/_all_docs?include_docs=true',
+		url: 'http://people.deadlypenguin.com/_design/people/_view/people/',
 		dataType: 'jsonp',
 		success: buildDataSet
 	});

@@ -1,25 +1,28 @@
 var currentSet = 1;
 var numberSet = 0;
 
-$(document).ready(function() {
-	jQuery.getJSON('http://www.deadlypenguin.com/json/static.json', function(data) {
-		var html;
+function buildDataSet(data) {
+	var html = '';
+	jQuery.each(data.rows, function(i,doc) {
+		var item = doc.value;
+		item.id = doc.id;
 
-		penguin = data.logo;
+		html = html + '<a rel="lightbox['+item.id+']" href="'+item.screenshot+'">';
+		html = html + '<img src="'+item.card+'" class="card" />';
+		html = html + '</a>';
+
+		jQuery.each(item.images, function(j, image) {
+			html = html + '<a rel="lightbox['+item.id+']" href="'+image.url+'" title="'+image.desc+'" ></a>';
+		});
 	});
 
-	jQuery.getJSON('http://www.deadlypenguin.com/json/design.json', function(data) {
-		var html = '';
-		jQuery.each(data.sites, function(i,item) {
-			html = html + '<a rel="lightbox['+item.id+']" href="'+item.screenshot+'">';
-			html = html + '<img src="'+item.card+'" class="card" />';
-			html = html + '</a>';
+	jQuery('#wrapper').prepend(html);
+};
 
-			jQuery.each(item.images, function(j, image) {
-				html = html + '<a rel="lightbox['+item.id+']" href="'+image.url+'" title="'+image.desc+'" ></a>';
-			});
-		});
-
-		jQuery('#wrapper').prepend(html);
+$(document).ready(function() {
+	jQuery.ajax({
+		url: 'http://design.deadlypenguin.com/_design/sites/_view/design/',
+		dataType: 'jsonp',                                                                                                                 
+		success: buildDataSet
 	});
 });
