@@ -8,19 +8,60 @@
 	ErrorLog <%= error_log %>
 	CustomLog <%= access_log %> <%= access_log_level %>
 
+<% if rewrite_log -%>
 	# Feed rewrites
 	RewriteEngine On
 	RewriteLog "<%= rewrite_log %>"
 	RewriteLogLevel <%= rewrite_log_level %>
+<% end -%>
+
+<% if @error_docs -%><% error_docs.each_pair do |key, value_hash| -%>
+	ErrorDocument <%= value_hash['code'] %> <%= value_hash['page'] %>
+<%end -%><%end -%>
+
+<% if @dir_opts -%><% dir_opts.each_pair do |key, value_hash| -%>
+	<Directory <%= value_hash['dir'] %>>
+		<%= value_hash['opts'] %>
+	</Directory>
+<%end -%><%end -%>
+
+<% if @proxy_pass_rules -%>
+	ProxyRequests On
+
+     <Proxy <%= proxy_pass_root %>>
+          Order <%= proxy_pass_order %>
+          Allow <%= proxy_pass_allow %>
+     </Proxy>
+     
+<% proxy_pass_rules.each_pair do |key, value_hash| -%>
+     ProxyPass <%= value_hash['pass_url'] %> <%= value_hash['pass_dest'] %>
+     ProxyPassReverse <%= value_hash['rpass_url'] %> <%= value_hash['rpass_dest'] %>
+     ProxyPreserveHost <%= value_hash['preserve'] %>
+<%end -%>
+<%end -%>
 
 <% if @rewrite -%><% rewrite.each_pair do |key, value_hash| -%>
 	RewriteCond <%= value_hash['condition'] %>
 	RewriteRule <%= value_hash['rule'] %>
 <% end -%><% end -%>
+
+<% if @places_rewrite -%><% places_rewrite.each_pair do |key, value_hash| -%>
+	RewriteRule <%= value_hash['url'] %> <%= value_hash['file'] %> <%= value_hash['opts'] %>
+<% end -%><% end -%>
+
+<% if @gallery_rewrite -%><% gallery_rewrite.each_pair do |key, value_hash| -%>
+	RewriteRule <%= value_hash['url'] %> <%= value_hash['file'] %> <%= value_hash['opts'] %>
+<% end -%><% end -%>
+
+<% if @tiny_rewrite -%><% tiny_rewrite.each_pair do |key, value_hash| -%>
+	RewriteRule <%= value_hash['url'] %> <%= value_hash['file'] %> <%= value_hash['opts'] %>
+<% end -%><% end -%>
+
 <% if @portfolio -%>
 <% portfolio.each_pair do |key, value_hash| -%>
 	RewriteRule ^/portfolio(/)? /gallery.php?title=<%= value_hash['title'] %>&setId=<%= value_hash['sid'] %>&nsId=<%= value_hash['nsid'] %> [P,L]
 <% end -%><% end -%>
+
 <% if @aliases -%>
 <% aliases.sort_by {|key, value| key}.each do |key, value_hash| -%>
 
