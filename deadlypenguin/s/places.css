@@ -1,14 +1,4 @@
-.map {
+#us_wrapper, #eu_wrapper {
+	width: 450px;
 	float: left;
-	position: absolute;
-	width: 900px;
-	height: 450px;
-	text-align: center;
-}
-
-#leftArrow {
-     position: absolute;
-     float: left;
-     top: 200px;
-     left: 10px;
 }

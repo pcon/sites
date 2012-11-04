@@ -1,5 +1,6 @@
 body {
-	background: #333;
+	background: #000;
+	font-family: Arial, Helvetica, sans-serif;
 	color: #777;
 }
 
@@ -33,6 +34,7 @@ img {
 	width: 900px;
 	height: 450px;
 	margin: 0 auto;
+	background: transparent url(http://lh5.ggpht.com/_rv96CE1pup8/TNV4NzT4QaI/AAAAAAAAC3c/cXYrnnYbM5c/logo_gray.png) no-repeat bottom left;
 }
 
 #footer {
@@ -44,6 +46,7 @@ img {
 #breadcrumb {
 	width: 700px;
 	text-decoration: none;
+	color: #777;
 }
 
 #copyright {
