@@ -1,10 +1,16 @@
+#wrapper {
+	height: auto;
+	padding-bottom: 90px;
+	margin: 0 auto;
+}
+
 .photo {
 	display: block;
-	position: absolute;
 	float: left;
 	background: #fff;
 	padding: 5px;
 	border: 1px solid #000;
+	margin: 10px 49px;
 }
 
 .shadow {
@@ -36,7 +42,6 @@
 	display: inline;
 	float: left;
 	margin: 0 auto;
-	font-family: 'Tangerine', serif;
 	font-size: 28px;
 	line-height: 28px;
 	text-align: center;
@@ -48,20 +53,10 @@
 	color: #000;
 }
 
-.photo1 {
-	z-index: 3;
-	margin-left: 167px;
-}
-
-.photo2 {
-	z-index: 1;
-	margin-left: 531px;
-}
-
-.photo3 {
-	z-index: 2;
-	margin-left: 359px;
-	margin-top: 200px;
+.page {
+	display: block;
+	width: 900px;
+	float: left;
 }
 
 #leftArrow {
