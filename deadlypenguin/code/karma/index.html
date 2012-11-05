@@ -86,6 +86,12 @@
 		} ();
 
 		function fetchKarma() {
+			if (window.username == null && QueryString.nick != undefined) {
+				username = QueryString.nick;
+			} else if (window.username == null) {
+				username = 'oorgle';
+			}
+
 			if (fromDay == null && QueryString.from != undefined) {
 				fromDay = QueryString.from;
 				fromDate = Date.parse(fromDay);
@@ -96,7 +102,7 @@
 				toDate = Date.parse(toDay);
 			}
 
-			var url = 'http://db.deadlypenguin.com/karma/_all_docs?include_docs=true';
+			var url = 'http://db.deadlypenguin.com/karma/_design/karma/_view/all/?nick='+username;
 
 			if (fromDay != null) {
 				url += '&startkey="'+fromDay+'"';
@@ -137,12 +143,6 @@
 		}
 
 		function buildDataSet(data) {
-			if (window.username == null && QueryString.nick != undefined) {
-				username = QueryString.nick;
-			} else if (window.username == null) {
-				username = 'oorgle';
-			}
-
 			jQuery('#nicks').val(username);
 
 			var myArray = [
@@ -161,7 +161,9 @@
 			}
 
 
-			jQuery.each(data.rows, function(i, item) {
+			jQuery.each(data.rows, function(i, doc) {
+				var item = doc.value;
+				item.id = doc.id;
 				if (firstDay == null) {
 					firstDay = item.id;
 					firstDate = Date.parse(firstDay);
@@ -184,7 +186,7 @@
 
 				if (names == null && i + 1 == data.rows.length) {
 					names = new Array();
-					for (var key in item.doc.scores[0]) {
+					for (var key in item.scores[0]) {
 						names.push(key);
 					}
 
@@ -197,7 +199,7 @@
 				var itemDate = Date.parse(item.id);
 
 				if (itemDate >= fromDate && itemDate <= toDate) {
-					var row = [''+item.id, Number(item.doc.scores[0][username])];
+					var row = [''+item.id, Number(item.scores[0][username])];
 					myArray.push(row);
 				}
 			});
