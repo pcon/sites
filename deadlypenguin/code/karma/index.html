@@ -46,7 +46,7 @@
 		var START_DATE = '2012-10-26';
 		var END_DATE = ''+TODAY.getFullYear()+'-'+(TODAY.getMonth()+1)+'-'+TODAY.getDate();
 
-		var username = null;
+		var usernames = null;
 		var names = null;
 
 		var firstDay = null;
@@ -86,10 +86,10 @@
 		} ();
 
 		function fetchKarma() {
-			if (window.username == null && QueryString.nick != undefined) {
-				username = QueryString.nick;
-			} else if (window.username == null) {
-				username = 'oorgle';
+			if (window.usernames == null && QueryString.nick != undefined) {
+				usernames = QueryString.nick;
+			} else if (window.usernames == null) {
+				usernames = 'oorgle';
 			}
 
 			if (fromDay == null && QueryString.from != undefined) {
@@ -102,7 +102,7 @@
 				toDate = Date.parse(toDay);
 			}
 
-			var url = 'http://db.deadlypenguin.com/karma/_design/karma/_view/all/?nick='+username;
+			var url = 'http://db.deadlypenguin.com/karma/_design/karma/_view/all/?nick='+usernames;
 
 			if (fromDay != null) {
 				url += '&startkey="'+fromDay+'"';
@@ -126,10 +126,16 @@
 			window.history.pushState({}, "", newUrl);
 		}
 
-		function selectedNick(i, item) {
-			username = item.item.label;
-			updateUrl(window.username, window.fromDay, window.toDay);
-			jQuery('#nicks').val('');
+		function selectedNick(event, ui) {
+			var names = split(this.value);
+			names.pop();
+			names.push(ui.item.value);
+			names.push("");
+
+			usernames = names.join(',');
+
+			updateUrl(window.usernames, window.fromDay, window.toDay);
+			this.value = '';
 			fetchKarma();
 		}
 
@@ -142,12 +148,33 @@
 			jQuery('#dialog').dialog("close");
 		}
 
-		function buildDataSet(data) {
-			jQuery('#nicks').val(username);
+		function split(val) {
+			return val.split(/,\s*/);
+		}
 
-			var myArray = [
-				['Date', ''+username],
-			];
+		function extractLast(term) {
+			return split(term).pop();
+		}
+
+		function buildDataSet(data) {
+			jQuery('#nicks').val(usernames);
+
+			uArray = split(usernames);
+			if (uArray[uArray.length-1] === '') {
+				uArray.pop();
+			}
+
+			var myArray = [];
+
+			var row = new Array();
+			row.push('Date');
+
+
+			for (index in uArray) {
+				row.push(uArray[index]);
+			}
+
+			myArray.push(row);
 
 			if (lastDay == null) {
 				var item = data.rows[data.rows.length-1];
@@ -190,8 +217,21 @@
 						names.push(key);
 					}
 
-					jQuery('#nicks').autocomplete({
-						source: names,
+					jQuery('#nicks').bind( "keydown", function(event) {
+						if (
+							event.keyCode === jQuery.ui.keyCode.TAB &&
+							jQuery(this).data("autocomplete").menu.active
+						) {
+							event.preventDefault();
+						}
+					}).autocomplete({
+						minLength: 0,
+						source: function (request, response) {
+							response(jQuery.ui.autocomplete.filter(names, extractLast(request.term)));
+						},
+						focus: function() {
+							return false;
+						},
 						select: selectedNick
 					});
 				}
@@ -199,7 +239,13 @@
 				var itemDate = Date.parse(item.id);
 
 				if (itemDate >= fromDate && itemDate <= toDate) {
-					var row = [''+item.id, Number(item.scores[0][username])];
+					var row = new Array()
+					row.push(''+item.id);
+
+					for (index in uArray) {
+						row.push(Number(item.scores[0][uArray[index]]));
+					}
+					
 					myArray.push(row);
 				}
 			});
