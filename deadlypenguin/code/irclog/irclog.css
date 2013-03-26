@@ -1,0 +1,21 @@
+td.icon a.btn-link {
+	padding: 0px;
+}
+
+.popover-image {
+	float: left;
+	height: 80px;
+	width: 80px;
+	padding-bottom: 9px;
+}
+
+.popover-list {
+	float: left;
+	list-style: none;
+	margin-left: 10px;
+}
+
+.label {
+	float: right;
+	margin: 0px 2px;
+}
