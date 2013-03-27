@@ -11,7 +11,7 @@ var row_template = '\
 		</a>\
 	</td>\
 	<td class="icon">\
-		<a class="btn btn-link" href="?id=__ID__">\
+		<a class="btn btn-link" href="?id=__ID__&channel=__CHANNEL__">\
 			<i class="icon-bookmark"></i>\
 		</a>\
 	</td>\
@@ -276,35 +276,39 @@ function printLogs(data) {
 		var nickType = 'human';
 		var realNick = log.nick;
 
-		if (typeof window.settings.alias_map[log.nick] !== 'undefined') {
-			realNick = window.settings.alias_map[log.nick];
+		var lowerNick = log.nick.toLowerCase();
+
+		if (typeof window.settings.alias_map[lowerNick] !== 'undefined') {
+			realNick = window.settings.alias_map[lowerNick];
 		}
 
-		if (jQuery.inArray(realNick.toLowerCase(), window.settings.bot_list) !== -1) {
+		var lowerReal = realNick.toLowerCase();
+
+		if (jQuery.inArray(lowerReal, window.settings.bot_list) !== -1) {
 			nickType = 'bot';
 		}
 
-		if (typeof window.settings.profile_map[realNick] !== 'undefined') {
-			var profile = window.settings.profile_map[realNick];
+		if (typeof window.settings.profile_map[lowerReal] !== 'undefined') {
+			var profile = window.settings.profile_map[lowerReal];
 			var tags = '';
 
 			if (
-				typeof window.settings.profile_map[realNick].regular &&
-				window.settings.profile_map[realNick].regular
+				typeof window.settings.profile_map[lowerReal].regular &&
+				window.settings.profile_map[lowerReal].regular
 			) {
 					tags += tag_template.replace('__TEXT__', 'regular').replace('__TYPE__', 'label-success');
 			}
 
 			if (
-				typeof window.settings.profile_map[realNick].op &&
-				window.settings.profile_map[realNick].op
+				typeof window.settings.profile_map[lowerReal].op &&
+				window.settings.profile_map[lowerReal].op
 			) {
 					tags += tag_template.replace('__TEXT__', 'op').replace('__TYPE__', 'label-inverse');
 			}
 
 			if (
-				typeof window.settings.profile_map[realNick].newb &&
-				window.settings.profile_map[realNick].newb
+				typeof window.settings.profile_map[lowerReal].newb &&
+				window.settings.profile_map[lowerReal].newb
 			) {
 					tags += tag_template.replace('__TEXT__', 'newb').replace('__TYPE__', 'label-warning');
 			}
@@ -326,13 +330,22 @@ function printLogs(data) {
 
 		var formattedText = replaceURLWithHTMLLinks(log.text);
 
+		if (
+			typeof window.settings.substitute_map !== 'undefined' &&
+			window.settings.substitute_map
+		) {
+			for(var key in window.settings.substitute_map) {
+				formattedText = formattedText.replace(key, window.settings.substitute_map[key]);
+			}
+		}
+
 		var row = '';
 
 		if (msgType === 'emote') {
 			formattedText = '<em>' + nickTxt + ' ' + formattedText + '</em>';
-			row = row_template.replace('__NICK__', '<i class="icon-user"></i>').replace('__ROW_CLASS__', rowStyle).replace('__DATETIME__', log.date).replace('__ID__', log._id).replace('__TEXT__', formattedText);
+			row = row_template.replace('__NICK__', '<i class="icon-user"></i>').replace('__ROW_CLASS__', rowStyle).replace('__DATETIME__', log.date).replace('__ID__', log._id).replace('__CHANNEL__', QueryString.channel).replace('__TEXT__', formattedText);
 		} else {
-			row = row_template.replace('__NICK__', nickTxt).replace('__ROW_CLASS__', rowStyle).replace('__DATETIME__', log.date).replace('__ID__', log._id).replace('__TEXT__', formattedText);
+			row = row_template.replace('__NICK__', nickTxt).replace('__ROW_CLASS__', rowStyle).replace('__DATETIME__', log.date).replace('__ID__', log._id).replace('__CHANNEL__', QueryString.channel).replace('__TEXT__', formattedText);
 		}
 
 		jQuery('#logs tbody').append(row);

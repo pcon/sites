@@ -24,3 +24,7 @@ td.icon a.btn-link {
 	text-align: center;
 	margin-bottom: 0px;
 }
+
+td.icon {
+	width: 18px;
+}
