@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Karma</title>
@@ -38,282 +39,27 @@
 		}
 	</style>
 
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript">
-		var TODAY = new Date();
-		var START_DATE = '2012-10-26';
-		var END_DATE = ''+TODAY.getFullYear()+'-'+(TODAY.getMonth()+1)+'-'+TODAY.getDate();
-
-		var usernames = null;
-		var names = null;
-
-		var firstDay = null;
-		var firstDate = null;
-		var lastDay = null;
-		var lastDate = null;
-
-		var fromDay = null;
-		var fromDate = null;
-		var toDay = null;
-		var toDate = null;
-
-		google.load("visualization", "1", {packages:["corechart"]});
-		google.setOnLoadCallback(fetchKarma);
-
-		var QueryString = function () {
-			// This function is anonymous, is executed immediately and 
-			// the return value is assigned to QueryString!
-			var query_string = {};
-			var query = window.location.search.substring(1);
-			var vars = query.split("&");
-			for (var i=0;i<vars.length;i++) {
-				var pair = vars[i].split("=");
-					// If first entry with this name
-				if (typeof query_string[pair[0]] === "undefined") {
-					query_string[pair[0]] = pair[1];
-					// If second entry with this name
-				} else if (typeof query_string[pair[0]] === "string") {
-					var arr = [ query_string[pair[0]], pair[1] ];
-					query_string[pair[0]] = arr;
-					// If third or later entry with this name
-				} else {
-					query_string[pair[0]].push(pair[1]);
-				}
-			} 
-			return query_string;
-		} ();
-
-		function fetchKarma() {
-			if (window.usernames == null && QueryString.nick != undefined) {
-				usernames = QueryString.nick;
-			} else if (window.usernames == null) {
-				usernames = 'oorgle';
-			}
-
-			if (fromDay == null && QueryString.from != undefined) {
-				fromDay = QueryString.from;
-				fromDate = Date.parse(fromDay);
-			}
-
-			if (toDay == null && QueryString.to != undefined) {
-				toDay = QueryString.to;
-				toDate = Date.parse(toDay);
-			}
-
-			var url = 'http://db.deadlypenguin.com/karma/_design/karma/_view/all/?nick='+usernames;
-
-			if (fromDay != null) {
-				url += '&startkey="'+fromDay+'"';
-			}
-
-			if (toDay != null) {
-				url += '&endkey="'+toDay+'"';
-			}
-
-			showLoadingDialog();
-			jQuery.ajax({
-				url: url,
-				dataType: 'jsonp',
-				success: buildDataSet
-			});
-		}
-
-		function updateUrl(currNick, curFromDay, curToDay) {
-			var newUrl = document.URL.substr(0, document.URL.lastIndexOf('/')+1);
-			newUrl += '?nick='+currNick+'&from='+curFromDay+'&to='+curToDay;
-			window.history.pushState({}, "", newUrl);
-		}
-
-		function selectedNick(event, ui) {
-			var names = split(this.value);
-			names.pop();
-			names.push(ui.item.value);
-			names.push("");
-
-			usernames = names.join(',');
-
-			updateUrl(window.usernames, window.fromDay, window.toDay);
-			this.value = '';
-			fetchKarma();
-		}
-
-		function showLoadingDialog() {
-			jQuery('#dialog').dialog({modal: true});
-			jQuery('#dialog').dialog("open");
-		}
-
-		function hideLoadingDialog() {
-			jQuery('#dialog').dialog("close");
-		}
-
-		function split(val) {
-			return val.split(/,\s*/);
-		}
-
-		function extractLast(term) {
-			return split(term).pop();
-		}
-
-		function buildDataSet(data) {
-			jQuery('#nicks').val(usernames);
-
-			uArray = split(usernames);
-			if (uArray[uArray.length-1] === '') {
-				uArray.pop();
-			}
-
-			var myArray = [];
-
-			var row = new Array();
-			row.push('Date');
-
-
-			for (index in uArray) {
-				row.push(uArray[index]);
-			}
-
-			myArray.push(row);
-
-			if (lastDay == null) {
-				var item = data.rows[data.rows.length-1];
-				lastDay = item.id;
-				lastDate = Date.parse(lastDay);
-
-				if (toDay == null) {
-					toDay = lastDay;
-					toDate = lastDate;
-				}
-			}
-
-
-			jQuery.each(data.rows, function(i, doc) {
-				var item = doc.value;
-				item.id = doc.id;
-				if (firstDay == null) {
-					firstDay = item.id;
-					firstDate = Date.parse(firstDay);
-
-					if (fromDay == null) {
-						fromDay = firstDay;
-						fromDate = firstDate;
-					}
-				}
-
-				if (lastDay == null && i + 1 == data.rows.length) {
-					lastDay = item.id;
-					lastDate = Date.parse(lastDay);
-
-					if (toDay == null) {
-						toDay = lastDay;
-						toDate = lastDate;
-					}
-				}
-
-				if (names == null && i + 1 == data.rows.length) {
-					names = new Array();
-					for (var key in item.scores[0]) {
-						names.push(key);
-					}
-
-					jQuery('#nicks').bind( "keydown", function(event) {
-						if (
-							event.keyCode === jQuery.ui.keyCode.TAB &&
-							jQuery(this).data("autocomplete").menu.active
-						) {
-							event.preventDefault();
-						}
-					}).autocomplete({
-						minLength: 0,
-						source: function (request, response) {
-							response(jQuery.ui.autocomplete.filter(names, extractLast(request.term)));
-						},
-						focus: function() {
-							return false;
-						},
-						select: selectedNick
-					});
-				}
-
-				var itemDate = Date.parse(item.id);
-
-				if (itemDate >= fromDate && itemDate <= toDate) {
-					var row = new Array()
-					row.push(''+item.id);
-
-					for (index in uArray) {
-						row.push(Number(item.scores[0][uArray[index]]));
-					}
-					
-					myArray.push(row);
-				}
-			});
-
-			jQuery("#from").datepicker({
-				dateFormat: "yy-mm-dd",
-				defaultDate: fromDay,
-				minDate: START_DATE,
-				maxDate: lastDay,
-				changeMonth: true,
-				numberOfMonths: 3,
-				onClose: function( selectedDate ) {
-					jQuery("#to").datepicker( "option", "minDate", selectedDate );
-					fromDay = selectedDate;
-					fromDate = Date.parse(fromDay);
-					updateUrl(window.username, window.fromDay, window.toDay);
-					fetchKarma();
-				}
-			}).val(fromDay);
-
-			jQuery("#to").datepicker({
-				dateFormat: "yy-mm-dd",
-				defaultDate: toDay,
-				minDate: firstDay,
-				maxDate: END_DATE,
-				changeMonth: true,
-				numberOfMonths: 3,
-				onClose: function( selectedDate ) {
-					jQuery("#from").datepicker( "option", "maxDate", selectedDate );
-					toDay = selectedDate;
-					toDate = Date.parse(toDay);
-					updateUrl(window.username, window.fromDay, window.toDay);
-					fetchKarma();
-				}
-			}).val(toDay);
-
-			drawChart(myArray);
-		}
-
-		function drawChart(arrayData) {
-			var data = google.visualization.arrayToDataTable(arrayData);
-
-			var options = {
-				title: 'Karma'
-			};
-
-			var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-			chart.draw(data, options);
-			hideLoadingDialog();
-		}
-	</script>
 </head>
 <body>
 	<div id="widget_wrapper">
 		<div class="ui-widget">
-			<input type="text" id="nicks" name="nicks" />
+			<input type="text" id="nicks" name="nicks">
 		</div>
 		<div class="ui-widget">
 			<label for="from">from</label>
-			<input type="text" id="from" name="from" />
+			<input type="text" id="from" name="from">
 		</div>
 		<div class="ui-widget">
 			<label for="to">to</label>
-			<input type="text" id="to" name="to" />
+			<input type="text" id="to" name="to">
 		</div>
 	</div>
 	<div id="chart_div" style="width: 900px; height: 500px;"></div>
 	<div id="dialog" title="Loading Karma Graph">Loading the karma graph</div>
-</div>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="karma.js"></script>
 </body>
 </html>
