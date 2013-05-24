@@ -1,197 +1,192 @@
+/*jslint browser: true, regexp: true, nomen: true */
+/*global config, QueryString, Galleria, Handlebars, jQuery, $ */
+
+var parsers = {};
+
 function loggly(data) {
-	var key = '11996c63-1738-422f-bcc2-7271e9411260'
-	var url = 'http://logs.loggly.com/inputs/'+key+'.gif';
-	var params = '?';
+	'use strict';
+	var key, params, full_url, template;
 
-	for (var key in data) {
-		params += key+"="+encodeURIComponent(data[key])+"&";
-	}
+	params = '';
 
-	var full_url = url + params.substr(0, params.length-1);
-
-	jQuery('body').append('<img src="'+full_url+'" />');
-}
-
-// fn to handle jsonp with timeouts and errors
-// hat tip to Ricardo Tomasi for the timeout logic
-$.getJSONP = function(s) {
-	s.dataType = 'jsonp';
-	$.ajax(s);
-
-	// figure out what the callback fn is
-	var $script = $(document.getElementsByTagName('head')[0].firstChild);
-	var url = $script.attr('src') || '';
-	var cb = (url.match(/callback=(\w+)/)||[])[1];
-	if (!cb)
-		return; // bail
-	var t = 0, cbFn = window[cb];
-
-	$script[0].onerror = function(e) {
-		$script.remove();
-		handleError(s, {}, "error", e);
-		clearTimeout(t);
-	};
-
-	if (!s.timeout)
-		return;
-
-	window[cb] = function(json) {
-		clearTimeout(t);
-		cbFn(json);
-		cbFn = null;
-	};
-
-	t = setTimeout(function() {
-		$script.remove();
-		handleError(s, {}, "timeout");
-		if (cbFn)
-			window[cb] = function(){};
-	}, s.timeout);
-	
-	function handleError(s, o, msg, e) {
-		showBadGallery(e,msg);
-
-		loggly({
-			url:window.location.href,
-			galleryUrl: s.url,
-			previousPage: document.referrer,
-			StatusCode: 404
-		});
-	}
-};
-
-function getParam(name) {
-	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-	var regexS = "[\\#&\?]"+name+"=([^&#]*)";
-	var regex = new RegExp( regexS );
-	var results = regex.exec( window.location.href );
-
-	if( results == null ) {
-		return "";
-	} else {
-		return results[1];
-	}
-}
-
-function urlExists(url) {
-	var http = null;
-
-	if (window.XMLHttpRequest) {
-		http = new XMLHttpRequest();
-	} else {
-		http = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-
-	if (http == null) {
-		return false;
-	}
-
-	http.open('HEAD', url, false);
-	http.send(null);
-	return http.status!=404;
-}
-
-
-var rootDir = "";
-var galleryXML = "";
-
-$(document).ready(function() {
-	Galleria.loadTheme('/galleria/themes/classic/galleria.classic.min.js');
-	rootDir = getParam("rootDir");
-
-	if (rootDir == "") {
-		rootDir = window.location.pathname.replace('gallery2', 'gallery');
-	}
-
-	var galleryJSON = null;
-	var parts = rootDir.split('/');
-
-	galleryJSON = 'http://' + parts[1] + '.deadlypenguin.com/'
-	first=true;
-	for (i = 2; i < parts.length; i++) {
-		if (!first && parts[i] != "") {
-			galleryJSON = galleryJSON + '-';
+	for (key in data) {
+		if (data.hasOwnProperty(key)) {
+			params += key + "=" + encodeURIComponent(data[key]) + "&";
 		}
-		first = false;
-		galleryJSON = galleryJSON + parts[i];
 	}
 
-	var request = jQuery.getJSONP({
-		url: galleryJSON,
-		success: parseCloudantFeed,
-		dataType: 'jsonp',
-	});
-});
+	full_url = config.LOGGLY_GIF_URL + config.URL_PARAM_SEP + params.substr(0, params.length - 1);
 
-function showBadGallery(jqXHR, textStatus) {
-	jQuery.getJSONP({
-		url: 'http://db.deadlypenguin.com/static/root',
-		dataType: 'jsonp',
-		success: function(data) {
-			var badPenguinImage = data.data.badPenguinImage;
-			jQuery('#gallery').css('text-align', 'center');
-			jQuery('#gallery').append('<img src="'+badPenguinImage+'" alt="404" title="404" width=350 height=350/><p>The gallery you have requested can not be found.');
-		}
+	template = Handlebars.compile(config.LOGGLY_GIF_TEMPLATE);
+	jQuery('body').append(template({full_url: full_url}));
+}
+
+function updateConfigs() {
+	'use strict';
+	var url_path, url_parts, i, doc_id, template;
+
+	template = Handlebars.compile(config.GALLERY_DOC_TEMPLATE);
+
+	doc_id = '';
+	url_path = window.location.pathname.substring(1);
+	url_path = url_path.replace(/\/$/, '');
+	url_parts = url_path.split('/');
+
+	config.GALLERY_TYPE = url_parts[0];
+
+	for (i = 1; i < url_parts.length; i += 1) {
+		doc_id += url_parts[i] + '-';
+	}
+
+	config.GALLERY_DOC = doc_id.substr(0, doc_id.length - 1);
+	config.DOC_URL = template({type: config.GALLERY_TYPE, doc: config.GALLERY_DOC});
+}
+
+function failedGalleryInfo() {
+	'use strict';
+
+	var template;
+
+	template = Handlebars.compile(jQuery('#error-template').html());
+	jQuery('#gallery').append(template({error_image: config.ERROR_IMAGE}));
+	jQuery('#gallery').css('text-align', 'center');
+
+	loggly({
+		url: window.location.href,
+		galleryUrl: config.GALLERY_DOC,
+		previousPage: document.referrer,
+		StatusCode: 404
 	});
 }
 
 function showGallery(dataset) {
-	// run galleria and add some options
-	
-	var startItem = Number(getParam('photo'));
+	'use strict';
+
+	var height;
+
+	height = parseInt(config.GALLERY_HEIGHT, 10);
+
+	if (height + config.GALLERY_THUMB_HEIGHT > jQuery(window).height()) {
+		height = jQuery(window).height() - config.GALLERY_THUMB_HEIGHT;
+	}
 
 	$('#gallery').galleria({
 		image_crop: false,
-		transition: 'fade',
-		height: 500,
+		height: height,
 		responsive: false,
 		preload: 6,
 		transition: 'slide',
-		show: startItem,
 		data_source: dataset,
-		extend:function() {
+		extend: function () {
 			this.attachKeyboard({
 				left: this.prev,
-				right: this.next,
+				right: this.next
 			});
 		}
 	});
 }
 
-function parsePicasaJSON(data, status) {
-	var dataset = new Array();
-	
-	$.each(data.feed.entry, function(i, item) {
-		var image = item.content.src;
-		var thumb = item.media$group.media$thumbnail[1].url;
-		var desc = item.title.$t;
-		var pattern = /\.jpg$/i
+parsers.picasa = function parsePicasa(data) {
+	'use strict';
+
+	var dataset, data_item, pattern, desc;
+
+	pattern = /\.jpg$/i;
+
+	dataset = [];
+
+	jQuery.each(data.feed.entry, function (i, item) {
+		data_item = {};
+		data_item.image = item.media$group.media$content[0].url;
+		data_item.thumb = item.media$group.media$thumbnail[1].url;
+		desc = item.title.$t;
+
 		if (desc.match(pattern)) {
 			desc = "";
 		}
 
-		dataset.push({image: image, thumb: thumb, description: ""+desc});
+		data_item.description = "";
+		data_item.description += desc;
+
+		if (item.media$group.media$content.height > config.GALLERY_HEIGHT) {
+			config.GALLERY_HEIGHT = item.media$group.media$content[0].height;
+		}
+
+		jQuery.each(item.link, function (j, jtem) {
+			if (jtem.rel === 'alternate' && jtem.type === 'text/html') {
+				data_item.link = jtem.href;
+			}
+		});
+
+		dataset.push(data_item);
 	});
 
 	showGallery(dataset);
-}
+};
 
-function parseCloudantFeed(data, status) {
-	jQuery.ajax({url: data.url, success: parsePicasaJSON, dataType: 'jsonp'});
+parsers.flickr = function parseFlickr(data) {
+	'use strict';
 
-	document.title = document.title + ' - ' + data.title;
+	var dataset, data_item, link_template;
 
-	var breadcrumbHTML = '';
+	dataset = [];
+	link_template = Handlebars.compile(config.GALLERY_LINK.flickr);
 
-	jQuery.each(data.breadcrumb, function(i, item) {
-		if (breadcrumbHTML != '') {
-			breadcrumbHTML = breadcrumbHTML + ' - ';
+	jQuery.each(data.photoset.photo, function (i, item) {
+		data_item = {};
+		data_item.image = item.url_l;
+		data_item.thumb = item.url_s;
+		data_item.description = item.description._content;
+		data_item.link = link_template({
+			path_alias: item.pathalias,
+			photo_id: item.id,
+			set_id: data.photoset.id
+		});
+
+		if (item.height_l > config.GALLERY_HEIGHT) {
+			config.GALLERY_HEIGHT = item.height_l;
 		}
 
-		breadcrumbHTML = breadcrumbHTML + '<a href="'+item.url+'">'+item.name+'</a>';
+		dataset.push(data_item);
 	});
 
-	if (breadcrumbHTML != '') {
-		jQuery('#breadcrumb').html(breadcrumbHTML);
+	showGallery(dataset);
+};
+
+function loadGalleryInfo(data) {
+	'use strict';
+
+	var data_promise, breadcrumb_template, breadcrumb_html, url_template, url;
+
+	url_template = Handlebars.compile(config.GALLERY_DATAURL[data.source]);
+	url = url_template(data);
+
+	data_promise = jQuery.ajax({
+		url: url,
+		dataType: 'jsonp'
+	});
+
+	if (data.breadcrumb !== undefined && data.breadcrumb.length !== 0) {
+		breadcrumb_template = Handlebars.compile(jQuery('#breadcrumb-template').html());
+		breadcrumb_html = breadcrumb_template(data).replace(/ - $/, '');
+		jQuery('#breadcrumb').html(breadcrumb_html);
 	}
+
+	data_promise.then(parsers[data.source], failedGalleryInfo);
 }
+
+jQuery(document).ready(function () {
+	'use strict';
+
+	var gallery_promise;
+
+	Galleria.loadTheme(config.GALLERY_THEME);
+	updateConfigs();
+
+	gallery_promise = jQuery.ajax({
+		url: config.DOC_URL,
+		dataType: 'jsonp'
+	});
+
+	gallery_promise.then(loadGalleryInfo, failedGalleryInfo);
+});
