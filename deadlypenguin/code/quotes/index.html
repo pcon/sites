@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>IRC Quotes</title>
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link href="quotes.css" rel="stylesheet">
+
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/handlebars.js"></script>
+		<script type="text/javascript" src="config.js"></script>
+		<script type="text/javascript" src="quotes.js"></script>
+
+		<script id="failed-template" type="text/x-handlebars-template">
+			<div class="alert alert-error">
+				<strong>Error:</strong> Failed to load quotes
+			</div>
+		</script>
+		<script id="failed-nick-template" type="text/x-handlebars-template">
+			<div class="alert">
+				<strong>Warning:</strong> Failed to nick list
+			</div>
+		</script>
+		<script id="quote-template" type="text/x-handlebars-template">
+			{{#unless quotes}}
+				<div class="alert alert-info">
+					No quotes found.
+				</div>
+			{{/unless}}
+			{{#each quotes}}
+				<blockquote>
+					<p class="lead">{{quote}}</p>
+					<small>#{{id}} &mdash; {{quoted}} &mdash; {{time}}</small>
+				</blockquote>
+				<br style="clear: both;" />
+			{{/each}}
+		</script>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<h1 id="title">#Salesforce IRC Quotes</h1>
+			<div class="row-fluid">
+				<div class="span3 well">
+					<ul class="nav nav-list">
+						<li>
+							<p class="muted">Search by nick</p>
+							<div class="input-append">
+								<input class="input-medium uneditable-input" type="text" placeholder="nick" data-provide="typeahead" autocomplete="off" id="nickList" name="nickList">
+								<button class="btn" type="button" onclick="searchNick();">Go!</button>
+							</div>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<p class="muted">Search by id</p>
+							<div class="input-append">
+								<input class="input-medium uneditable-input" type="text" placeholder="1234" autocomplete="off" id="idInput" name="idInput">
+								<button class="btn" type="button" onclick="searchId();">Go!</button>
+							</div>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<p class="muted">Search by text</p>
+							<div class="input-append">
+								<input class="input-medium uneditable-input" type="text" placeholder="Mongoose" autocomplete="off" id="search" name="search">
+								<button class="btn" type="button" onclick="searchText();">Go!</button>
+							</div>
+						</li>
+						<li class="divider"></li>
+						<li class="nav-header">Other fun tools</li>
+						<li><a href="/code/karma/">Karma Graph</a></li>
+						<li><a href="/code/irclog/">IRC Log</a></li>
+					</ul>
+				</div>
+				<div class="span9" id="content">
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
