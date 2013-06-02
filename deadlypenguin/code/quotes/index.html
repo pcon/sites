@@ -34,15 +34,26 @@
 			{{#each quotes}}
 				<blockquote>
 					<p class="lead">{{quote}}</p>
-					<small>#{{id}} &mdash; {{quoted}} &mdash; {{time}}</small>
+					<small>#<a href="#id={{id}}" onclick="searchById('{{id}}');">{{id}}</a> &mdash; <a href="#nick={{quoted}}" onclick="searchByNick('{{quoted}}')">{{quoted}}</a> &mdash; {{time}}</small>
 				</blockquote>
 				<br style="clear: both;" />
 			{{/each}}
+			{{#if quotes}}
+				<ul class="pager" id="pager">
+					<li class="previous disabled">
+						<a href="#" onclick="updateOffset(-{{limit}}); return false;">&larr; Prev</a>
+					</li>
+					<li class="next disabled">
+						<a href="#" onclick="updateOffset({{limit}}); return false;">Next &rarr;</a>
+					</li>
+				</ul>
+			{{/if}}
 		</script>
 	</head>
 	<body>
 		<div class="container-fluid">
-			<h1 id="title">#Salesforce IRC Quotes</h1>
+			<h1 id="title" class="text-center">#Salesforce IRC Quotes</h1>
+			<br />
 			<div class="row-fluid">
 				<div class="span3 well">
 					<ul class="nav nav-list">
@@ -78,6 +89,10 @@
 				<div class="span9" id="content">
 				</div>
 			</div>
+		</div>
+		<div id="footer" class="well text-center" style="margin-bottom: 0px; margin-top: 100px;">
+			<p class="muted credit">Written by <a href="http://about.me/patrick.connelly">Patrick Connelly</a></p>
+			<p class="muted credit">using <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, <a href="http://jquery.com/">jQuery</a> and <a href="http://handlebarsjs.com/">Handlebars</a></p>
 		</div>
 	</body>
 </html>
