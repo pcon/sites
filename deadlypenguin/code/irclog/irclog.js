@@ -59,9 +59,32 @@ var QueryString = function () {
 	return query_string;
 } ();
 
+function escapeRegExp(str) {
+	return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
 function replaceURLWithHTMLLinks(text) {
 	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 	return text.replace(exp,"<a href='$1'>$1</a>"); 
+}
+
+function shortenLongURLs(text) {
+	var exp = /[^'](\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+	var matches = text.match(exp);
+	var strLen = 100;
+
+	if (matches != null) {
+		for (var i = 0; i < matches.length; i++) {
+			if (matches[i].length > strLen) {
+				var oldString = matches[i];
+				var newString = oldString.substring(0, strLen);
+				newString += '...';
+				text = text.replace(RegExp(escapeRegExp(oldString)), newString);
+			}
+		}
+	}
+
+	return text;
 }
 
 function getChannelUrl(channel) {
@@ -329,6 +352,7 @@ function printLogs(data) {
 		}
 
 		var formattedText = replaceURLWithHTMLLinks(log.text);
+		formattedText = shortenLongURLs(formattedText);
 
 		if (
 			typeof window.settings.substitute_map !== 'undefined' &&
