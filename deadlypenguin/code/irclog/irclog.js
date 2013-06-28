@@ -350,8 +350,10 @@ function printLogs(data) {
 		if (msgType === 'notice') {
 			rowStyle += ' text-warning';
 		}
+		
 
-		var formattedText = replaceURLWithHTMLLinks(log.text);
+		var formattedText = log.text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		formattedText = replaceURLWithHTMLLinks(formattedText);
 		formattedText = shortenLongURLs(formattedText);
 
 		if (
