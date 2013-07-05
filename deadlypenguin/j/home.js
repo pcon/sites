@@ -1,13 +1,18 @@
-/*jslint nomen: true*/
-/*global document, window, jQuery*/
-/*jslint nomen: false*/
+/*jslint browser: true, regexp: true */
+/*global jQuery */
 
-jQuery.noConflict();
 jQuery(document).ready(function () {
-	"use strict";
-	var numCovers, coverNumber;
+	'use strict';
 
-	numCovers = 4;
-	coverNumber = Math.floor(Math.random() * numCovers) + 1;
-	jQuery('#coverImage' + coverNumber).removeClass('hidden');
+	var docWidth, carouselWidth;
+	
+	docWidth = jQuery(window).width();
+	carouselWidth = jQuery('#carousel').width();
+
+	if (docWidth - 40 < carouselWidth) {
+		carouselWidth = docWidth - 40;
+	}
+
+	jQuery('.carousel').width(carouselWidth).carousel();
+
 });

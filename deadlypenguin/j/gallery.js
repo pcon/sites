@@ -44,12 +44,18 @@ function updateConfigs() {
 
 function failedGalleryInfo() {
 	'use strict';
-
-	var template;
+	var template, margin;
+	
+	margin = (parseInt(jQuery('#gallery').width(), 10) - 350) / 2;
+	margin += 'px';
 
 	template = Handlebars.compile(jQuery('#error-template').html());
-	jQuery('#gallery').append(template({error_image: config.ERROR_IMAGE}));
+	jQuery('#gallery').append(template({error_image: config.ERROR_IMAGE, margin: margin}));
 	jQuery('#gallery').css('text-align', 'center');
+
+	if (jQuery('#breadcrumb li').size() === 0) {
+		jQuery('#breadcrumb-container').hide();
+	}
 
 	loggly({
 		url: window.location.href,
@@ -61,22 +67,18 @@ function failedGalleryInfo() {
 
 function showGallery(dataset) {
 	'use strict';
-
 	var height;
 
-	height = parseInt(config.GALLERY_HEIGHT, 10);
+	height = jQuery(window).height() - jQuery('body').height();
 
-	if (height + config.GALLERY_THUMB_HEIGHT > jQuery(window).height()) {
-		height = jQuery(window).height() - config.GALLERY_THUMB_HEIGHT;
-	}
-
-	$('#gallery').galleria({
+	Galleria.loadTheme('/galleria/themes/deadly/galleria.classic.min.js');
+	Galleria.run('#gallery', {
+		dataSource: dataset,
 		image_crop: false,
-		height: height,
-		responsive: false,
 		preload: 6,
 		transition: 'slide',
-		data_source: dataset,
+		height: height,
+		autoplay: 5000,
 		extend: function () {
 			this.attachKeyboard({
 				left: this.prev,
@@ -88,7 +90,6 @@ function showGallery(dataset) {
 
 parsers.picasa = function parsePicasa(data) {
 	'use strict';
-
 	var dataset, data_item, pattern, desc;
 
 	pattern = /\.jpg$/i;
@@ -126,37 +127,44 @@ parsers.picasa = function parsePicasa(data) {
 
 parsers.flickr = function parseFlickr(data) {
 	'use strict';
-
 	var dataset, data_item, link_template;
 
 	dataset = [];
 	link_template = Handlebars.compile(config.GALLERY_LINK.flickr);
 
-	jQuery.each(data.photoset.photo, function (i, item) {
-		data_item = {};
-		data_item.image = item.url_l;
-		data_item.thumb = item.url_s;
-		data_item.description = item.description._content;
-		data_item.link = link_template({
-			path_alias: item.pathalias,
-			photo_id: item.id,
-			set_id: data.photoset.id
+	if (data.stat !== 'fail') {
+		jQuery.each(data.photoset.photo, function (i, item) {
+			data_item = {};
+			data_item.image = item.url_l;
+			data_item.thumb = item.url_s;
+			data_item.description = item.description._content;
+			data_item.link = link_template({
+				path_alias: item.pathalias,
+				photo_id: item.id,
+				set_id: data.photoset.id
+			});
+
+			if (item.height_l > config.GALLERY_HEIGHT) {
+				config.GALLERY_HEIGHT = item.height_l;
+			}
+
+			dataset.push(data_item);
 		});
 
-		if (item.height_l > config.GALLERY_HEIGHT) {
-			config.GALLERY_HEIGHT = item.height_l;
-		}
-
-		dataset.push(data_item);
-	});
-
-	showGallery(dataset);
+		showGallery(dataset);
+	} else {
+		failedGalleryInfo();
+	}
 };
 
 function loadGalleryInfo(data) {
 	'use strict';
-
 	var data_promise, breadcrumb_template, breadcrumb_html, url_template, url;
+
+	if (config.GALLERY_DATAURL[data.source] === undefined) {
+		failedGalleryInfo();
+		return;
+	}
 
 	url_template = Handlebars.compile(config.GALLERY_DATAURL[data.source]);
 	url = url_template(data);
@@ -170,6 +178,12 @@ function loadGalleryInfo(data) {
 		breadcrumb_template = Handlebars.compile(jQuery('#breadcrumb-template').html());
 		breadcrumb_html = breadcrumb_template(data).replace(/ - $/, '');
 		jQuery('#breadcrumb').html(breadcrumb_html);
+		jQuery('#breadcrumb li:last span.divider').remove();
+	}
+
+	if (parsers[data.source] === undefined) {
+		failedGalleryInfo();
+		return;
 	}
 
 	data_promise.then(parsers[data.source], failedGalleryInfo);
@@ -177,10 +191,8 @@ function loadGalleryInfo(data) {
 
 jQuery(document).ready(function () {
 	'use strict';
-
 	var gallery_promise;
 
-	Galleria.loadTheme(config.GALLERY_THEME);
 	updateConfigs();
 
 	gallery_promise = jQuery.ajax({

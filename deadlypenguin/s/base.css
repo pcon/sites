@@ -1,81 +1,79 @@
-body {
-	background: #000;
-	font-family: Arial, Helvetica, sans-serif;
-	color: #777;
+@font-face {
+     font-family: 'fontello';
+     src: url("../f/fontello.eot?11995952");
+     src: url("../f/fontello.eot?11995952#iefix") format('embedded-opentype'), url("../f/fontello.woff?11995952") format('woff'), url("../f/fontello.ttf?11995952") format('truetype'), url("../f/fontello.svg?11995952#fontello") format('svg');
+     font-weight: normal;
+     font-style: normal;
 }
 
-a {
-	color:#aaa;
-	text-decoration: none;
-	font-size: 10pt;
-	border: none;
-	outline: none;
-}
-
-a:focus, a:active, a:visited, a:hover {
-	border: none;
-	-moz-outline-style: none;
-	outline: none;
-}
-
-a img {
-	border: none;
-	outline: none;
-	-moz-outline-style: none;
-}
-
-img { 
-	border: none;
-	outline: none;
-	-moz-outline-style: none;
-}
-
-#wrapper {
-	width: 900px;
-	height: 450px;
-	margin: 0 auto;
-	background: transparent url(http://lh5.ggpht.com/_rv96CE1pup8/TNV4NzT4QaI/AAAAAAAAC3c/cXYrnnYbM5c/logo_gray.png) no-repeat bottom left;
-}
-
-#footer {
-	width: 900px;
-	margin: 0px auto;
+.clearboth {
 	clear: both;
 }
 
-#breadcrumb {
-	width: 700px;
-	text-decoration: none;
-	color: #777;
+#wrapper {
+	max-width: 1000px;
+	margin: 0 auto;
 }
 
-#copyright {
-	width: 100px;
-	float: right;
-	text-align: right;
+.carousel {
+	margin: 0 auto;
 }
 
-.hidden {
-	display: none;
+#carousel {
+	width: 800px;
+	height: 531px;
 }
 
-#header {
-	margin: 10px auto;
+#carousel-mobile {
+	width: 500px;
+	height: 334px;
+}
+
+img.media-object {
+	margin: 10px;
+}
+
+img.media-object.small {
+	margin: 5px;
+}
+
+.social a {
+	color: inherit;
+	border: none !important;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	display: inline-block;
+	font-family: 'fontello';
+	font-style: normal !important;
+	font-variant: normal !important;
+	font-weight: normal !important;
+	line-height: 1em;
+	speak: none;
 	text-align: center;
+	text-decoration: none !important;
+	text-transform: none !important;
+	width: 1em;
 }
 
-#pageTitle {
-	font-family: 'Lobster', serif;
-	font-size: 40pt;
-	color: #300;
-	border: 
+.social a:hover {
+	color: #005580;
 }
 
-#logo {
-	position: relative;
+#footer {
+	margin-bottom: 0px;
+	margin-top: 50px;
+}
+
+#footer-credit, #footer-social {
 	display: inline;
+	margin-bottom: 0px
+}
+
+#footer-credit {
 	float: left;
-	top: 350px;
-	left: 0px;
-	z-index: 5;
+}
+
+#footer-social {
+	float: right;
 }
