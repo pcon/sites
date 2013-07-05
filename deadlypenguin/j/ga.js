@@ -1,6 +1,6 @@
- var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-10566743-5']);
-_gaq.push(['_trackPageview']);
+var _gaq = _gaq || [];
+gaq.push(['_setAccount', 'UA-10566743-5']);
+gaq.push(['_trackPageview']);
 
 (function() {
 	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
