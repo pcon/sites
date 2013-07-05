@@ -1,38 +1,161 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"> 
-<head> 
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>Deadlypenguin - Design and Photography</title>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<script type="text/javascript" src="j/home.js"></script>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Deadlypenguin Photography and Design</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" type="text/css" href="/s/base.css" /> 
-	<link rel="stylesheet" type="text/css" href="/s/home.css" /> 
-</head>
-<body>
-	<div id="header"><img id="pageTitle" alt="Deadlypenguin Design and Photography" src="http://lh4.ggpht.com/_rv96CE1pup8/TNV3MpmoawI/AAAAAAAAC3E/4VbETjKZRRc/title_home.png" /></div>
-	<div id="wrapper" style="">
-		<img src="http://lh6.ggpht.com/_rv96CE1pup8/TGVhKdAnjyI/AAAAAAAACwU/iEwz3GTLtc8/s720/Gate.jpg" alt="cover image" class="coverImage hidden" id="coverImage1" />
-		<img src="http://lh3.ggpht.com/_rv96CE1pup8/TDxxi2uj91I/AAAAAAAACPA/hVenk0DW1kU/DSC_0078.jpg" alt="cover image" class="coverImage hidden" id="coverImage2" />
-		<img src="http://lh6.ggpht.com/_rv96CE1pup8/TDx3570C2JI/AAAAAAAACSs/fmDRsz9Vj00/DSC_0304.jpg" alt="cover image" class="coverImage hidden" id="coverImage3" />
-		<img src="http://lh4.ggpht.com/_rv96CE1pup8/TDxmAZxCGXI/AAAAAAAACH4/JrP68zWE6KI/DSC_0472.jpg" alt="cover image" class="coverImage hidden" id="coverImage4" />
-		<img src="" alt="cover image" class="coverImage hidden" id="coverImage" />
-	</div>
-	<div id="footer">
-		<div id="copyright">
-			<div class="hidden"><a xmlns:cc="http://creativecommons.org/ns#" href="http://www.deadlypenguin.com" property="cc:attributionName" rel="cc:attributionURL">Patrick Connelly</a></div>
-			<a href="http://creativecommons.org/licenses/by-sa/3.0/us/"><img src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" alt="Creative Commons BY-SA" /></a>
-		</div>
-		<div id="navigationWrapper">
-			<ul id="navigation">
-				<li><a href="/people/"><img src="http://lh4.ggpht.com/_rv96CE1pup8/TNhxxxsQEjI/AAAAAAAADd8/h9drIw6SkJY/nav_people.png" alt="People" /></a></li>
-				<li><a href="/places/"><img src="http://lh6.ggpht.com/_rv96CE1pup8/TNhxyOMtb7I/AAAAAAAADeA/2aKwVErRJiQ/nav_places.png" alt="Places" /></a></li>
-				<li><a href="/events/"><img src="http://lh3.googleusercontent.com/-G8FO8zjZhr4/T-N3_mzxboI/AAAAAAAAFRg/YCfD7Ek5LV4/s70/nav_events.png" alt="Events" /></a></li>
-				<li><a href="/websites/"><img src="http://lh6.ggpht.com/_rv96CE1pup8/TNhySd1okDI/AAAAAAAADeI/rRN3h29Ev-E/nav_sites.png" alt="Sites" /></a></li>
-				<li><a href="/design/"><img src="http://lh3.ggpht.com/_rv96CE1pup8/TNhxxTBN8YI/AAAAAAAADd0/ES6eNWX8Ps8/nav_design.png" alt="Design" /></a></li>
-				<li><a href="/contact/"><img src="http://lh4.ggpht.com/_rv96CE1pup8/TNhxxKZPmlI/AAAAAAAADdw/egsmWDHfhDk/nav_contact.png" alt="Contact" /></a></li>
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+		<link href="/s/base.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<div class="masthead">
+				<ul class="nav nav-pills pull-right">
+					<li class="active"><a href="/">Home</a></li>
+					<li><a href="/photography">Photography</a></li>
+					<li><a href="/development">Development</a></li>
+					<li><a href="/design">Design</a></li>
+					<li><a href="http://blog.deadlypenguin.com/blog/">Blog</a></li>
+				</ul>
+				<h3 class="muted">Deadlypenguin</h3>
+			</div>
+			<hr>
+			<div class="jumbotron text-center">
+				<h1>Design and Photography</h1>
+			</div>
+			<div id="carousel" class="carousel slide hidden-phone">
+				<ol class="carousel-indicators">
+					<li data-target="#carousel" data-slide-to="0" class="active"></li>
+					<li data-target="#carousel" data-slide-to="1"></li>
+					<li data-target="#carousel" data-slide-to="2"></li>
+					<li data-target="#carousel" data-slide-to="3"></li>
+					<li data-target="#carousel" data-slide-to="4"></li>
+				</ol>
+				<!-- Carousel items -->
+				<div class="carousel-inner">
+					<div class="active item"><img src="http://farm7.staticflickr.com/6238/6866353446_e188156df3_c.jpg"></div>
+					<div class="item"><img src="http://farm9.staticflickr.com/8276/8792257648_a6093b4335_c.jpg"></div>
+					<div class="item"><img src="http://farm4.staticflickr.com/3782/9062466480_21a6918a2e_c.jpg"></div>
+					<div class="item"><img src="http://farm3.staticflickr.com/2890/9062169052_76373bed23_c.jpg"></div>
+					<div class="item"><img src="http://farm8.staticflickr.com/7445/9062464390_84721430b9_c.jpg"></div>
+				</div>
+				<!-- Carousel nav -->
+				<a class="carousel-control left" href="#carousel" data-slide="prev">&lsaquo;</a>
+				<a class="carousel-control right" href="#carousel" data-slide="next">&rsaquo;</a>
+			</div>
+			<div id="carousel-mobile" class="carousel slide visible-phone">
+				<ol class="carousel-indicators">
+					<li data-target="#carousel-mobile" data-slide-to="0" class="active"></li>
+					<li data-target="#carousel-mobile" data-slide-to="1"></li>
+					<li data-target="#carousel-mobile" data-slide-to="2"></li>
+					<li data-target="#carousel-mobile" data-slide-to="3"></li>
+					<li data-target="#carousel-mobile" data-slide-to="4"></li>
+				</ol>
+				<!-- Carousel items -->
+				<div class="carousel-inner">
+					<div class="active item"><img src="http://farm7.staticflickr.com/6238/6866353446_e188156df3.jpg"></div>
+					<div class="item"><img src="http://farm9.staticflickr.com/8276/8792257648_a6093b4335.jpg"></div>
+					<div class="item"><img src="http://farm4.staticflickr.com/3782/9062466480_21a6918a2e.jpg"></div>
+					<div class="item"><img src="http://farm3.staticflickr.com/2890/9062169052_76373bed23.jpg"></div>
+					<div class="item"><img src="http://farm8.staticflickr.com/7445/9062464390_84721430b9.jpg"></div>
+				</div>
+				<!-- Carousel nav -->
+				<a class="carousel-control left" href="#carousel-mobile" data-slide="prev">&lsaquo;</a>
+				<a class="carousel-control right" href="#carousel-mobile" data-slide="next">&rsaquo;</a>
+			</div>
+			<hr>
+			<h1 id="about">About</h1>
+			<div class="media">
+				<img src="img/selfportrait.jpg" alt="" class="img-polaroid media-object pull-left">
+				<div class="media-body">
+					<div class="media">
+						<p>Ever since I was a child, I have loved photography and technology. Sometime around 1996, I started designing and programming sites for others.</p>
+						<p>I fell into wedding and engagement photos after being asked by a friend to take their wedding photos. Since then I have enjoyed working with people on their special day. My photography style is to try and bring out the natural personality of my subject by making them feel at ease.</p>
+						<p>I also take the same approach to my design work, opting for simplicity and allowing the content to shine.</p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<h1 id="skills">Skills</h1>
+			<ul class="thumbnails">
+				<li class="span4">
+					<div class="text-center well">
+						<a class="visible-desktop" href="/photography"><img src="/img/thumbnails/photography_large.jpg" alt=""></a>
+						<a class="hidden-desktop" href="/photography"><img src="/img/thumbnails/photography.jpg" alt=""></a>
+						<h3><a href="/photography">Photography</a></h3>
+						<p>I love sharing my photos with the world. In addition to my photos from around the world, you can also see photos from weddings, engagements and other events I have photographed.</p>
+					</div>
+				</li>
+				<li class="span4">
+					<div class="text-center well">
+						<a class="visible-desktop" href="/development"><img src="/img/thumbnails/development_large.png" alt=""></a>
+						<a class="hidden-desktop" href="/development"><img src="/img/thumbnails/development.png" alt=""></a>
+						<h3><a href="/development">Development</a></h3>
+						<p>Over the years, I have learned (and taught myself) lots about programming.  Take a look at some of the development projects I'm involved in, and more information about the languages I'm familiar with.</p>
+					</div>
+				</li>
+				<li class="span4">
+					<div class="text-center well">
+						<a class="visible-desktop" href="/design"><img src="/img/thumbnails/design_large.png" alt=""></a>
+						<a class="hidden-desktop" href="/design"><img src="/img/thumbnails/design.png" alt=""></a>
+						<h3><a href="/design">Design</a></h3>
+						<p>My design experience doesn't just extend to web design, but also to physical products such as t-shirts and flyers.</p>
+					</div>
+				</li>
 			</ul>
+			<hr>
+			<h1 id="contact">Contact</h1>
+			<p>Want to get in touch? Feel free to <a href="mailto:patrick@deadlypenguin.com"><i class="icon-envelope"></i> email me</a> or call me 919.624.0764</p>
+			<h3>Rates</h3>
+			<div class="row">
+				<div class="span6">
+					<ul class="unstyled">
+						<li>Rates for photography vary from shoot to shoot and are affected by:</li>
+						<li>
+							<ul>
+								<li>Duration</li>
+								<li>Location</li>
+								<li>Date</li>
+								<li>Complexity</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div class="span6">
+					<ul class="unstyled">
+						<li>Rates for design work vary based on the job and are affected by</li>
+						<li>
+							<ul>
+								<li>Scope</li>
+								<li>Due Date</li>
+								<li>Technological Limitations</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
-</body>
+		<div id="footer" class="well">
+			<div class="container">
+				<p class="muted credit" id="footer-credit">
+					Developed and designed by <a href="http://about.me/patrick.connelly">Patrick Connelly</a> using <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>
+				</p>
+				<p class="muted text-right" id="footer-social">
+					Let's be social:
+					<span class="social"><a href="https://twitter.com/aelst">&#xf309;</a></span>
+					<span class="social"><a href="https://plus.google.com/u/0/110313812766862944812/posts">&#xf30f;</a></span>
+					<span class="social"><a href="http://flickr.com/photos/grepsy">&#xf303;</a></span>
+					<span class="social"><a href="http://pcon.github.io/">&#xf300;</a></span>
+					<span class="social"><a href="https://www.linkedin.com/pub/patrick-connelly/28/6b3/b56/">&#xf318;</a></span>
+					<span class="social"><a href="mailto:patrick@deadlypenguin.com">&#x2709;</a></span>
+					<span class="social"><a href="http://blog.deadlypenguin.com/blog/feed/">&#xe73a;</a></span>
+					<!-- Fonts by Daniel Bruce and Just Be Nice studio used under SIL OFL. http://deadlypenguin.com/f/LICENSE.txt -->
+				</p>
+			</div>
+		</div>
+		<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+		<script src="/j/home.js"></script>
+		<script src="/j/ga.js"></script>
+	</body>
 </html>
