@@ -2,17 +2,54 @@
 <html lang="en">
 <head>
 	<title>IRC Logs</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" />
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="irclog.css" />
 
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
-	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/blitzer/jquery-ui.css" />
-	<link href="../css/bootstrap.irclog.min.css" rel="stylesheet">
-	<link href="irclog.css" rel="stylesheet">
-
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="irclog.js"></script>
+	<script id="name-template" type="text/x-handlebars-template">
+		<a href="#"
+			class="nick" title=""
+			data-toggle="popover"
+			data-placement="right"
+			data-html="true"
+			data-content="<img class='popover-image' src='{{avatar}}' /><ul class='popover-list'><li><a href='{{url}}'>Profile</a></li><li><a href='/code/karma/?nick={{nick}}'>Karma</a></li></ul>"
+			data-original-title="<span class='popover-name'>{{name}}</span>{{#if regular}}<span class='label label-success'>regular</span>{{/if}}{{#if newb}}<span class='label label-warning'>newb</span>{{/if}}{{#if op}}<span class='label label-inverse'>op</span>{{/if}}{{#if mvp}}<span class='label label-important'>mvp</span>{{/if}}">{{nick}}</a>
+	</script>
+	<script id="row-template" type="text/x-handlebars-template">
+		{{#unless logs}}
+		<tr>
+			<td>No logs found for the given day</td>
+		</tr>
+		{{/unless}}
+		{{#each logs}}
+		{{#if_inchannel channel}}
+			<tr class="{{type}} {{enriched_style this}}">
+				{{#if_emote type}}
+					<td><i class="icon-user"></i></td>
+					<td><em>{{{enriched_nick nick}}} {{{enriched_content text}}}</em></td>
+				{{else}}
+					<td>{{{enriched_nick nick}}}</td>
+					<td>{{{enriched_content text}}}</td>
+				{{/if_emote}}
+				<td class="icon">
+					<a class="btn btn-link date-icon" data-toggle="tooltip" data-placement="left" title="{{date}}">
+						<i class="icon-time"></i>
+					</a>
+				</td>
+				<td class="icon">
+					<a class="btn btn-link bookmark-icon" href="?id={{_id}}">
+						<i class="icon-bookmark"></i>
+					</a>
+				</td>
+			</tr>
+		{{/if_inchannel}}
+		{{/each}}
+	</script>
+	<script id="abbr-template" type="text/x-handlebars-template"><abbr title="{{desc}}">{{name}}</abbr></script>
+	<script id="title-template" type="text/x-handlebars-template">IRC Logs (#{{channel}})</script>
+	<script id="loading-template" type="text/x-handlebars-template"><tr><td>Loading...</td></tr></script>
+	<script id="failedsettings-template" type="text/x-handlebars-template"><div class="alert alert-error">Failed to load settings</div></script>
+	<script id="failedlogs-template" type="text/x-handlebars-template"><div class="alert alert-error">Failed to load settings</div></script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -20,15 +57,13 @@
 			<div class="span12 accordion" id="search-options">
 				<div class="accordion-group">
 				    <div class="accordion-heading">
-						<a class="accordion-toggle" data-toggle="collapse" data-parent="#search-options" href="#collapse-search">
-							Search Options
-						</a>
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#search-options" href="#collapse-search">Search Options</a>
 					</div>
 					<div id="collapse-search" class="accordion-body collapse">
 						<div class="accordion-inner">
 							<form class="form-search">
 								<div class="input-append">
-									<input type="text" class="span8" placeholder="" name="search" id="search-text">
+									<input type="text" class="span8 search-query" placeholder="Search" name="search" id="search-text">
 									<select class="span6" id="channel" name="channel">
 										<option value="salesforce" selected="selected">#salesforce</option>
 										<option value="solenopsis">#solenopsis</option>
@@ -46,7 +81,9 @@
 				<h1 id="log-title">IRC Logs</h1>
 				<table class="table table-hover table-condensed" id="logs">
 					<caption><div class="alert alert-info">The logs are updated every half-hour</div></caption>
-					<tbody></tbody>
+					<tbody>
+						<tr><td><p class="text-center"><i class="icon-spinner icon-spin icon-large"></i> Loading</p></td></tr>
+					</tbody>
 				</table>
 				<ul class="pager">
 					<li class="previous disabled">
@@ -65,16 +102,12 @@
 			<p class="muted credit"><a href="http://glyphicons.com">Glyphicons Free</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
 		</div>
 	</div>
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-10566743-5']);
-		_gaq.push(['_trackPageview']);
-
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/j/handlebars.js"></script>
+	<script type="text/javascript" src="/j/moment.min.js"></script>
+	<script type="text/javascript" src="config.js"></script>
+	<script type="text/javascript" src="irclog.js"></script>
+	<script type="text/javascript" src="/j/ga.js"></script>
 </body>
 </html>
