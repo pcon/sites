@@ -15,6 +15,10 @@ td.icon a.btn-link {
 	margin-left: 10px;
 }
 
+.popover-name {
+	margin-right: 10px;
+}
+
 .label {
 	float: right;
 	margin: 0px 2px;
@@ -27,4 +31,27 @@ td.icon a.btn-link {
 
 td.icon {
 	width: 18px;
+}
+
+.notice, .notice a {
+	color: #c09853;
+}
+
+.bot, .bot a {
+	color: #999;
+}
+
+.date-icon, .bookmark-icon, .date-icon:hover, .bookmark-icon:hover {
+	color: #555;
+	text-decoration: none;
+}
+
+#search-text {
+	border-right-width: 0px;
+}
+
+#channel {
+	border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
 }
