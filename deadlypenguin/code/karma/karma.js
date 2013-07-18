@@ -1,129 +1,106 @@
 /*jslint browser: true, regexp: true */
-/*global google, jQuery, $ */
+/*global google, Handlebars, config, moment, jQuery, $ */
 
-var TODAY, START_DATE, END_DATE, usernames, names, firstDay, firstDate, lastDay, lastDate, fromDay, fromDate, toDay, toDate, buildDataSet;
+var parsers, typeaheadData;
+parsers = {};
+typeaheadData = [];
 
-TODAY = new Date();
-START_DATE = '2012-10-26';
-END_DATE = TODAY.getFullYear() + '-' + (TODAY.getMonth() + 1) + '-' + TODAY.getDate();
-
-usernames = null;
-names = null;
-
-firstDay = null;
-firstDate = null;
-lastDay = null;
-lastDate = null;
-fromDay = null;
-fromDate = null;
-toDay = null;
-toDate = null;
-
-var QueryString = (function () {
+function getURLParameter(sParam) {
 	'use strict';
-	var query_string, query, vars, i, pair, arr;
-	query_string = {};
-	query = window.location.search.substring(1);
-	vars = query.split("&");
-	for (i = 0; i < vars.length; i = i + 1) {
-		pair = vars[i].split("=");
-		if (typeof query_string[pair[0]] === "undefined") {
-			query_string[pair[0]] = pair[1];
-		} else if (typeof query_string[pair[0]] === "string") {
-			arr = [ query_string[pair[0]], pair[1] ];
-			query_string[pair[0]] = arr;
-		} else {
-			query_string[pair[0]].push(pair[1]);
+	var sPageURL, sURLVariables, sParameterName, i;
+
+	sPageURL = window.location.search.substring(1);
+	sURLVariables = sPageURL.split('&');
+	for (i = 0; i < sURLVariables.length; i += 1) {
+		sParameterName = sURLVariables[i].split('=');
+		if (sParameterName[0] === sParam) {
+			return sParameterName[1];
 		}
 	}
-	return query_string;
-}());
-
-function showLoadingDialog() {
-	'use strict';
-	jQuery('#dialog').dialog({modal: true});
-	jQuery('#dialog').dialog("open");
 }
 
-function hideLoadingDialog() {
+function updateURL() {
 	'use strict';
-	jQuery('#dialog').dialog("close");
-}
+	var template;
 
-function split(val) {
-	'use strict';
-	return val.split(/,\s*/);
-}
-
-function extractLast(term) {
-	'use strict';
-	return split(term).pop();
-}
-
-function updateUrl(currNick, curFromDay, curToDay) {
-	'use strict';
-	var newUrl = document.URL.substr(0, document.URL.lastIndexOf('/') + 1);
-	newUrl += '?nick=' + currNick + '&from=' + curFromDay + '&to=' + curToDay;
-	window.history.pushState({}, "", newUrl);
-}
-
-function fetchKarma() {
-	'use strict';
-	var url;
-
-	if (window.usernames === null && QueryString.nick !== undefined) {
-		usernames = QueryString.nick;
-	} else if (window.usernames === null) {
-		usernames = 'oorgle';
-	}
-
-	if (fromDay === null && QueryString.from !== undefined) {
-		fromDay = QueryString.from;
-		fromDate = Date.parse(fromDay);
-	}
-
-	if (toDay === null && QueryString.to !== undefined) {
-		toDay = QueryString.to;
-		toDate = Date.parse(toDay);
-	}
-
-	url = 'http://db.deadlypenguin.com/karma/_design/karma/_view/all/?nick=' + usernames;
-
-	if (fromDay !== null) {
-		url += '&startkey="' + fromDay + '"';
-	}
-
-	if (toDay !== null) {
-		url += '&endkey="' + toDay + '"';
-	}
-
-	showLoadingDialog();
-	jQuery.ajax({
-		url: url,
-		dataType: 'jsonp',
-		success: buildDataSet
+	template = Handlebars.compile(config.SEARCH_TEMPLATE);
+	window.location.search = template({
+		nick: jQuery('#nick').val(),
+		to: config.TO,
+		from: config.FROM
 	});
 }
 
-function selectedNick(event, ui) {
+function selectedNick() {
 	'use strict';
-	var names = split(jQuery('#nicks').val());
-	names.pop();
-	names.push(ui.item.value);
-	names.push("");
+	var newNick, nickList;
 
-	usernames = names.join(',');
+	nickList = jQuery('#nick').val().split(',');
+	nickList.push(jQuery('#new-nick-input').val());
+	jQuery('#nick').val(nickList.join(','));
+	updateURL();
 
-	updateUrl(window.usernames, window.fromDay, window.toDay);
-	ui.item.value = usernames;
-	fetchKarma();
+	return false;
 }
 
-function drawChart(arrayData) {
+function addNick() {
+	'use strict';
+	var template;
+
+	template = Handlebars.compile(jQuery('#new-nick-template').html());
+
+	jQuery('#new-nick').popover({
+		placement: 'right',
+		title: 'Add Nick',
+		html: true,
+		content: template({})
+	}).popover('show');
+
+	jQuery('#new-nick-input').typeahead({
+		source: typeaheadData
+	});
+
+	return false;
+}
+
+function failedTypeahead() {
+	'use strict';
+}
+
+function populateTypeahead(data) {
+	'use strict';
+
+	typeaheadData = [];
+
+	jQuery.each(data.rows, function (i, item) {
+		typeaheadData.push(item.key);
+	});
+}
+
+function fetchTypeahead() {
+	'use strict';
+	var nicklistPromise;
+
+	nicklistPromise = jQuery.ajax({
+		url: config.VALUE_LIST_URL,
+		dataType: 'jsonp'
+	});
+
+	nicklistPromise.then(populateTypeahead, failedTypeahead);
+}
+
+
+function failedKarma() {
+	'use strict';
+	var template = Handlebars.compile(jQuery('#error-template').html());
+	jQuery('#chart_div').html(template({}));
+}
+
+function drawChart(formattedData) {
 	'use strict';
 	var data, options, chart;
 
-	data = google.visualization.arrayToDataTable(arrayData);
+	data = google.visualization.arrayToDataTable(formattedData);
 
 	options = {
 		title: 'Karma'
@@ -131,145 +108,184 @@ function drawChart(arrayData) {
 
 	chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 	chart.draw(data, options);
-	hideLoadingDialog();
 }
 
-buildDataSet = function (data) {
+parsers.single = function parseSingle(data) {
 	'use strict';
-	var uArray, myArray, row, index, item;
+	var formattedData = [];
+	formattedData.push(['Date', config.NICK_LIST[0].split('"')[1]]);
 
-	jQuery('#nicks').val(usernames);
+	jQuery.each(data.rows, function (i, item) {
+		formattedData.push([item.id, Number(item.value)]);
+	});
 
-	uArray = split(usernames);
-	if (uArray[uArray.length - 1] === '') {
-		uArray.pop();
-	}
+	jQuery('#from').val(data.rows[0].id);
+	jQuery('#to').val(data.rows[data.rows.length - 1].id);
 
-	myArray = [];
+	drawChart(formattedData);
+};
 
-	row = [];
-	row.push('Date');
+parsers.multi = function parseMulti(data) {
+	'use strict';
+	var formattedData, headerData, dayData, byNick, largestNick, smallest_moment, largest_moment, m, k;
 
+	byNick = {};
+	formattedData = [];
+	headerData = [];
+	headerData.push('Date');
 
-	for (index in uArray) {
-		if (uArray.hasOwnProperty(index)) {
-			row.push(uArray[index]);
-		}
-	}
+	jQuery.each(config.UNQUOTED_NICK_LIST, function (i, item) {
+		byNick[item] = {};
+		headerData.push(item);
+	});
 
-	myArray.push(row);
+	formattedData.push(headerData);
 
-	if (lastDay === null) {
-		item = data.rows[data.rows.length - 1];
-		lastDay = item.id;
-		lastDate = Date.parse(lastDay);
+	jQuery.each(data.rows, function (j, jtem) {
+		var nick_data;
 
-		if (toDay === null) {
-			toDay = lastDay;
-			toDate = lastDate;
-		}
-	}
+		m = moment(jtem.id);
 
-
-	jQuery.each(data.rows, function (i, doc) {
-		var item, key, itemDate, row, index;
-
-		item  = doc.value;
-		item.id = doc.id;
-		if (firstDay === null) {
-			firstDay = item.id;
-			firstDate = Date.parse(firstDay);
-
-			if (fromDay === null) {
-				fromDay = firstDay;
-				fromDate = firstDate;
-			}
-		}
-
-		if (lastDay === null && i + 1 === data.rows.length) {
-			lastDay = item.id;
-			lastDate = Date.parse(lastDay);
-
-			if (toDay === null) {
-				toDay = lastDay;
-				toDate = lastDate;
-			}
-		}
-
-		if (names === null && i + 1 === data.rows.length) {
-			names = [];
-			for (key in item.scores[0]) {
-				if (item.scores[0].hasOwnProperty(key)) {
-					names.push(key);
-				}
+		if (m >= config.FROM_MOMENT && m <= config.TO_MOMENT) {
+			if (smallest_moment === undefined || m < smallest_moment) {
+				smallest_moment = m;
 			}
 
-			jQuery('#nicks').bind("keydown", function (event) {
-				if (event.keyCode === jQuery.ui.keyCode.TAB && jQuery(this).data("autocomplete").menu.active) {
-					event.preventDefault();
-				}
-			}).autocomplete({
-				minLength: 0,
-				source: function (request, response) {
-					response(jQuery.ui.autocomplete.filter(names, extractLast(request.term)));
-				},
-				focus: function () {
-					return false;
-				},
-				select: selectedNick
-			});
-		}
-
-		itemDate = Date.parse(item.id);
-
-		if (itemDate >= fromDate && itemDate <= toDate) {
-			row = [];
-			row.push(item.id);
-
-			for (index in uArray) {
-				if (uArray.hasOwnProperty(index)) {
-					row.push(Number(item.scores[0][uArray[index]]));
-				}
+			if (largest_moment === undefined || m > largest_moment) {
+				largest_moment = m;
 			}
-			
-			myArray.push(row);
+
+			byNick[jtem.key][jtem.id] = jtem.value;
 		}
 	});
 
-	jQuery("#from").datepicker({
-		dateFormat: "yy-mm-dd",
-		defaultDate: fromDay,
-		minDate: START_DATE,
-		maxDate: lastDay,
-		changeMonth: true,
-		numberOfMonths: 3,
-		onClose: function (selectedDate) {
-			jQuery("#to").datepicker("option", "minDate", selectedDate);
-			fromDay = selectedDate;
-			fromDate = Date.parse(fromDay);
-			updateUrl(window.username, window.fromDay, window.toDay);
-			fetchKarma();
-		}
-	}).val(fromDay);
+	jQuery('#from').val(smallest_moment.format(config.DATE_FORMAT));
+	jQuery('#to').val(largest_moment.format(config.DATE_FORMAT));
 
-	jQuery("#to").datepicker({
-		dateFormat: "yy-mm-dd",
-		defaultDate: toDay,
-		minDate: firstDay,
-		maxDate: END_DATE,
-		changeMonth: true,
-		numberOfMonths: 3,
-		onClose: function (selectedDate) {
-			jQuery("#from").datepicker("option", "maxDate", selectedDate);
-			toDay = selectedDate;
-			toDate = Date.parse(toDay);
-			updateUrl(window.username, window.fromDay, window.toDay);
-			fetchKarma();
-		}
-	}).val(toDay);
+	for (m = smallest_moment; m <= largest_moment; m.add('days', 1)) {
+		dayData = [];
+		dayData.push(m.format(config.DATE_FORMAT));
 
-	drawChart(myArray);
+		for (k = 0; k < config.UNQUOTED_NICK_LIST.length; k = k + 1) {
+			if (byNick[config.UNQUOTED_NICK_LIST[k]][m.format(config.DATE_FORMAT)] !== undefined) {
+				dayData.push(Number(byNick[config.UNQUOTED_NICK_LIST[k]][m.format(config.DATE_FORMAT)]));
+			} else {
+				dayData.push(null);
+			}
+		}
+
+		formattedData.push(dayData);
+	}
+
+	drawChart(formattedData);
 };
 
+function fetchKarma() {
+	'use strict';
+	var karmaPromise;
+
+	karmaPromise = jQuery.ajax({
+		url: config.KARMA_URL,
+		dataType: 'jsonp'
+	});
+
+	karmaPromise.then(parsers[config.TYPE], failedKarma);
+
+	fetchTypeahead();
+}
+
+function parseSettings() {
+	'use strict';
+	var template;
+
+	config.MAX_DATE = moment().subtract('days', 1).format(config.DATE_FORMAT);
+
+	if (jQuery('#to').val() !== '') {
+		config.TO = jQuery('#to').val();
+		config.TO_MOMENT = moment(config.TO);
+	} else {
+		config.TO_MOMENT = moment('2900-01-01');
+	}
+
+	if (jQuery('#from').val() !== '') {
+		config.FROM = jQuery('#from').val();
+		config.FROM_MOMENT = moment(config.FROM);
+	} else {
+		config.FROM_MOMENT = moment('1900-01-01');
+	}
+
+	config.NICK_LIST = [];
+	config.UNQUOTED_NICK_LIST = [];
+
+	jQuery.each(jQuery('#nick').val().split(','), function (i, item) {
+		config.NICK_LIST.push('"' + item.toLowerCase() + '"');
+		config.UNQUOTED_NICK_LIST.push(item.toLowerCase());
+	});
+
+	if (config.NICK_LIST.length === 1) {
+		config.TYPE = 'single';
+		template = Handlebars.compile(config.URL_SINGLE_NICK_TEMPLATE);
+		config.KARMA_URL = template({
+			nick: config.NICK_LIST[0],
+			startdate: config.FROM,
+			enddate: config.TO
+		});
+	} else {
+		config.TYPE = 'multi';
+		template = Handlebars.compile(config.URL_MULTI_NICK_TEMPLATE);
+
+		config.KARMA_URL = template({
+			nicks: config.NICK_LIST.join(',')
+		});
+	}
+
+	jQuery('#from-calendar').datepicker({
+		date: config.FROM_MOMENT.toDate(),
+		format: config.DATE_FORMAT,
+		startDate: moment(config.MIN_DATE).toDate(),
+		endDate: config.TO_MOMENT.toDate()
+	}).on('changeDate', function (e) {
+		config.FROM = moment(e.date).format(config.DATE_FORMAT);
+		config.FROM_MOMENT = moment(config.FROM);
+		updateURL();
+	});
+
+	jQuery('#to-calendar').datepicker({
+		date: config.TO_MOMENT.toDate(),
+		format: config.DATE_FORMAT,
+		startDate: config.FROM_MOMENT.toDate(),
+		endDate: moment(config.MAX_DATE).toDate()
+	}).on('changeDate', function (e) {
+		config.TO = moment(e.date).format(config.DATE_FORMAT);
+		config.TO_MOMENT = moment(config.FROM);
+		updateURL();
+	});
+
+	fetchKarma();
+}
+
+function parseURLSettings() {
+	'use strict';
+
+	if (getURLParameter('nick') !== undefined) {
+		jQuery('#nick').val(getURLParameter('nick'));
+	} else {
+		jQuery('#nick').value('oorgle');
+		updateURL();
+	}
+
+	if (getURLParameter('from') !== undefined) {
+		jQuery('#from').val(getURLParameter('from'));
+		config.FROM = getURLParameter('from');
+	}
+
+	if (getURLParameter('to') !== undefined) {
+		jQuery('#to').val(getURLParameter('to'));
+		config.TO = getURLParameter('to');
+	}
+
+	parseSettings();
+}
+
 google.load("visualization", "1", {packages: [ "corechart" ]});
-google.setOnLoadCallback(fetchKarma);
+google.setOnLoadCallback(parseURLSettings);

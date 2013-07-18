@@ -1,65 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Karma</title>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
-	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/blitzer/jquery-ui.css" />
+	<title>IRC Karma</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" />
+	<link rel="stylesheet" href="/s/bootstrap-datepicker.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="karma.css" />
 
-	<style>
-		#widget_wrapper {
-			margin: 0 auto;
-			width: 525px;
-		}
-
-		#chart_div {
-			margin: 0 auto;
-		}
-
-		.ui-autocomplete {
-			max-height: 100px;
-			overflow-y: auto;
-			/* prevent horizontal scrollbar */
-			overflow-x: hidden;
-		}
-		/* IE 6 doesn't support max-height
-		* we use height instead, but this forces the menu to always be this tall
-		*/
-		* html .ui-autocomplete {
-			height: 100px;
-		}
-
-		.ui-widget {
-			display: inline-block;
-		}
-
-		.ui-widget input {
-			border: 1px solid #ddd;
-			padding: 0px 5px;
-			width: 150px;
-		}
-	</style>
-
+	<script id="new-nick-template" type="text/x-handlebars-template">
+		<input type="text" class="input-small" id="new-nick-input" name="new-nick-input" placeholder="nick" autocomplete="off">
+		<a onclick="selectedNick();"><i class="icon-plus-sign-alt"></i></a>
+	</script>
+	<script id="error-template" type="text/x-handlebars-template">
+		<div class="text-center alert alert-error"><i class="icon-ban-circle icon-large"></i> Failed to load karma.</div>
+	</script>
 </head>
 <body>
-	<div id="widget_wrapper">
-		<div class="ui-widget">
-			<input type="text" id="nicks" name="nicks">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span6 offset3 text-center">
+				<h1 id="log-title">IRC Karma</h1>
+				<div class="alert alert-info">Karma updated nightly</div>
+				<form class="form-inline">
+					<div class="input-append">
+						<input type="text" class="input-medium" id="nick" name="nick" placeholder="nick" disabled>
+						<span class="add-on">
+							<a id="new-nick" onclick="addNick()"><i class="icon-plus-sign"></i></a>
+						</span>
+					</div>
+					from
+					<div class="input-append">
+						<input type="text" class="input-small" id="from" name="from" placeholder="2012-10-26">
+						<span class="add-on">
+							<i class="icon-calendar" id="from-calendar"></i>
+						</span>
+					</div>
+					to
+					<div class="input-append">
+						<input type="text" class="input-small" id="to" name="to" placeholder="2012-12-30">
+						<span class="add-on">
+							<i class="icon-calendar" id="to-calendar"></i>
+						</span>
+					</div>
+				</form>
+			</div>
 		</div>
-		<div class="ui-widget">
-			<label for="from">from</label>
-			<input type="text" id="from" name="from">
-		</div>
-		<div class="ui-widget">
-			<label for="to">to</label>
-			<input type="text" id="to" name="to">
+		<div class="row-fluid">
+			<div class="span12">
+				<div id="chart_div" style="width: 900px; height: 500px;">
+					<p class="text-center"><i class="icon-spinner icon-spin icon-large"></i> Loading</p>
+				</div>
+			</div>
 		</div>
 	</div>
-	<div id="chart_div" style="width: 900px; height: 500px;"></div>
-	<div id="dialog" title="Loading Karma Graph">Loading the karma graph</div>
 
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/j/bootstrap-datepicker.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="/j/handlebars.js"></script>
+	<script type="text/javascript" src="/j/moment.min.js"></script>
+	<script type="text/javascript" src="config.js"></script>
 	<script type="text/javascript" src="karma.js"></script>
+	<script type="text/javascript" src="/j/ga.js"></script>
 </body>
 </html>
