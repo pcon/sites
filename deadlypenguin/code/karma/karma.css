@@ -1,0 +1,35 @@
+#widget_wrapper {
+	margin: 0 auto;
+	width: 525px;
+}
+
+#chart_div {
+	margin: 0 auto;
+}
+
+.ui-autocomplete {
+	max-height: 100px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+* we use height instead, but this forces the menu to always be this tall
+*/
+* html .ui-autocomplete {
+	height: 100px;
+}
+
+.ui-widget {
+	display: inline-block;
+}
+
+.ui-widget input {
+	border: 1px solid #ddd;
+	padding: 0px 5px;
+	width: 150px;
+}
+
+#new-nick {
+	color: #333;
+}
