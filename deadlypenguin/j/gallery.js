@@ -42,15 +42,31 @@ function updateConfigs() {
 	config.DOC_URL = template({type: config.GALLERY_TYPE, doc: config.GALLERY_DOC});
 }
 
-function failedGalleryInfo() {
+function failedGalleryInfo(code, message) {
 	'use strict';
-	var template, margin;
-	
+	var template, margin, error_message;
+
+	if (message === null || message === undefined) {
+		message = config.ERROR_MESSAGE;
+	}
+
+	error_message = message;
+
+	if (parseInt(code, 10) === 1) {
+		error_message = config.ERROR_MESSAGE;
+		code = 404;
+	}
+
+	if (code.status !== undefined) {
+		error_message = config.ERROR_MESSAGE;
+		code = parseInt(code.status, 10);
+	}
+
 	margin = (parseInt(jQuery('#gallery').width(), 10) - 350) / 2;
 	margin += 'px';
 
 	template = Handlebars.compile(jQuery('#error-template').html());
-	jQuery('#gallery').append(template({error_image: config.ERROR_IMAGE, margin: margin}));
+	jQuery('#gallery').append(template({error_image: config.ERROR_IMAGE, margin: margin, error_message: error_message}));
 	jQuery('#gallery').css('text-align', 'center');
 
 	if (jQuery('#breadcrumb li').size() === 0) {
@@ -61,13 +77,19 @@ function failedGalleryInfo() {
 		url: window.location.href,
 		galleryUrl: config.GALLERY_DOC,
 		previousPage: document.referrer,
-		StatusCode: 404
+		StatusCode: code,
+		message: message
 	});
 }
 
 function showGallery(dataset) {
 	'use strict';
 	var height;
+
+	if (dataset === undefined || dataset.length === 0) {
+		failedGalleryInfo(1, 'Gallery empty');
+		return;
+	}
 
 	height = jQuery(window).height() - jQuery('body').height();
 
@@ -153,7 +175,7 @@ parsers.flickr = function parseFlickr(data) {
 
 		showGallery(dataset);
 	} else {
-		failedGalleryInfo();
+		failedGalleryInfo(data.code, data.message);
 	}
 };
 
@@ -162,7 +184,7 @@ function loadGalleryInfo(data) {
 	var data_promise, breadcrumb_template, breadcrumb_html, url_template, url;
 
 	if (config.GALLERY_DATAURL[data.source] === undefined) {
-		failedGalleryInfo();
+		failedGalleryInfo(1, 'Unknown data url');
 		return;
 	}
 
@@ -182,7 +204,7 @@ function loadGalleryInfo(data) {
 	}
 
 	if (parsers[data.source] === undefined) {
-		failedGalleryInfo();
+		failedGalleryInfo(1, 'Unknown parser');
 		return;
 	}
 
