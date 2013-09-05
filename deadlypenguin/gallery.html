@@ -12,7 +12,7 @@
 
 		<script id="error-template" type="text/x-handlebars-template">
 			<img src="{{error_image}}" style="margin-left: {{margin}}" alt="404" title="404" width="350" height="350" />
-			<p>The gallery you have requested can not be found.</p>
+			<p>{{error_message}}</p>
 		</script>
 
 		<script id="breadcrumb-template" type="text/x-handlebars-template">{{#each breadcrumb}}<li><a href="{{url}}">{{name}}</a> <span class="divider">/</span></li>{{/each}}</script>
