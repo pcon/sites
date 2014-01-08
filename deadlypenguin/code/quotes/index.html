@@ -6,15 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 		<link href="quotes.css" rel="stylesheet">
-
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
-		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script type="text/javascript" src="../js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="../js/handlebars.js"></script>
-		<script type="text/javascript" src="config.js"></script>
-		<script type="text/javascript" src="quotes.js"></script>
 
 		<script id="failed-template" type="text/x-handlebars-template">
 			<div class="alert alert-error">
@@ -52,33 +45,40 @@
 		</script>
 	</head>
 	<body>
-		<div class="container-fluid">
+		<div class="container">
 			<h1 id="title" class="text-center">#Salesforce IRC Quotes</h1>
 			<br />
-			<div class="row-fluid">
-				<div class="span3 well">
+			<div class="row">
+				<div class="col-md-9 col-xs-12 col-sm-12 visible-sm visible-xs" id="content-mobile"></div>
+				<div class="col-md-3 col-xs-12 col-sm-12 well">
 					<ul class="nav nav-list">
 						<li>
 							<p class="muted">Search by nick</p>
-							<div class="input-append">
-								<input class="input-medium uneditable-input" type="text" placeholder="nick" data-provide="typeahead" autocomplete="off" id="nickList" name="nickList">
-								<button class="btn" type="button" onclick="searchNick();">Go!</button>
+							<div class="input-group">
+								<input class="form-control" type="text" placeholder="nick" data-provide="typeahead" autocomplete="off" id="nickList" name="nickList" disabled>
+								<span class="input-group-btn">
+									<button class="btn" type="button" onclick="searchNick();">Go!</button>
+								</span>
 							</div>
 						</li>
 						<li class="divider"></li>
 						<li>
 							<p class="muted">Search by id</p>
-							<div class="input-append">
-								<input class="input-medium uneditable-input" type="text" placeholder="1234" autocomplete="off" id="idInput" name="idInput">
-								<button class="btn" type="button" onclick="searchId();">Go!</button>
+							<div class="input-group">
+								<input class="form-control" type="text" placeholder="1234" autocomplete="off" id="idInput" name="idInput">
+								<span class="input-group-btn">
+									<button class="btn" type="button" onclick="searchId();">Go!</button>
+								</span>
 							</div>
 						</li>
 						<li class="divider"></li>
 						<li>
 							<p class="muted">Search by text</p>
-							<div class="input-append">
-								<input class="input-medium uneditable-input" type="text" placeholder="Mongoose" autocomplete="off" id="search" name="search">
-								<button class="btn" type="button" onclick="searchText();">Go!</button>
+							<div class="input-group">
+								<input class="form-control" type="text" placeholder="Mongoose" autocomplete="off" id="search" name="search">
+								<span class="input-group-btn">
+									<button class="btn" type="button" onclick="searchText();">Go!</button>
+								</span>
 							</div>
 						</li>
 						<li class="divider"></li>
@@ -87,13 +87,19 @@
 						<li><a href="/code/irclog/">IRC Log</a></li>
 					</ul>
 				</div>
-				<div class="span9" id="content">
-				</div>
+				<div class="col-md-9 hidden-sm hidden-xs" id="content"></div>
 			</div>
 		</div>
 		<div id="footer" class="well text-center" style="margin-bottom: 0px; margin-top: 100px;">
 			<p class="muted credit">Written by <a href="http://about.me/patrick.connelly">Patrick Connelly</a></p>
-			<p class="muted credit">using <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, <a href="http://jquery.com/">jQuery</a> and <a href="http://handlebarsjs.com/">Handlebars</a></p>
+			<p class="muted credit">using <a href="http://getbootstrap.com/">Bootstrap</a>, <a href="http://jquery.com/">jQuery</a> and <a href="http://handlebarsjs.com/">Handlebars</a></p>
 		</div>
+
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
+		<script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/handlebars.js"></script>
+		<script type="text/javascript" src="config.js"></script>
+		<script type="text/javascript" src="quotes.js"></script>
 	</body>
 </html>
