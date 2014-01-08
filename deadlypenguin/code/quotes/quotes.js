@@ -63,6 +63,8 @@ function displayQuotes(tmpl_data) {
 
 	jQuery('#content').html(template(tmpl_data));
 	jQuery('#content blockquote:odd').addClass('pull-right');
+	jQuery('#content-mobile').html(template(tmpl_data));
+	jQuery('#content-mobile blockquote:odd').addClass('pull-right');
 
 	if (!config.SHOW_PAGER) {
 		removePager();
@@ -235,11 +237,11 @@ function populateNicks(data) {
 		nicks.push(value.key);
 	});
 
-	jQuery('#nickList').typeahead({
+	jQuery('#nickList').autocomplete({
 		source: nicks
 	});
 
-	jQuery('#nickList').removeClass('uneditable-input');
+	jQuery('#nickList').prop('disabled', false);
 }
 
 function loadNicks() {
