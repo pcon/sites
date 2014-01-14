@@ -3,6 +3,8 @@
 
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-10566743-5']);
+_gaq.push(['_setDomainName', 'deadlypenguin.com']);
+_gaq.push(['_setAllowLinker']);
 _gaq.push(['_trackPageview']);
 
 (function () {
