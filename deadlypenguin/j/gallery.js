@@ -196,6 +196,8 @@ function loadGalleryInfo(data) {
 		dataType: 'jsonp'
 	});
 
+	document.title = data.title + " » Deadlypenguin";
+
 	if (data.breadcrumb !== undefined && data.breadcrumb.length !== 0) {
 		breadcrumb_template = Handlebars.compile(jQuery('#breadcrumb-template').html());
 		breadcrumb_html = breadcrumb_template(data).replace(/ - $/, '');
