@@ -1,5 +1,5 @@
 /*jslint browser: true, regexp: true */
-/*global google, Handlebars, config, moment, jQuery, $ */
+/*global google, Bloodhound, Handlebars, config, moment, jQuery, $ */
 
 var parsers, typeaheadData;
 parsers = {};
@@ -45,7 +45,7 @@ function selectedNick() {
 
 function addNick() {
 	'use strict';
-	var template;
+	var template, dataset;
 
 	template = Handlebars.compile(jQuery('#new-nick-template').html());
 
@@ -55,10 +55,6 @@ function addNick() {
 		html: true,
 		content: template({})
 	}).popover('show');
-
-	jQuery('#new-nick-input').typeahead({
-		source: typeaheadData
-	});
 
 	return false;
 }
@@ -264,13 +260,59 @@ function parseSettings() {
 	fetchKarma();
 }
 
+function update_leaderboard(data) {
+	'use strict';
+
+	var karma, tuples, key, value, i, template, topmembers, url_tmpl;
+
+	karma = data.rows[0].value.scores[0];
+	tuples = [];
+	topmembers = [];
+
+	for (key in karma) {
+		if (karma.hasOwnProperty(key)) {
+			tuples.push([key, parseInt(karma[key], 10)]);
+		}
+	}
+
+	tuples.sort(function (a, b) {
+		a = a[1];
+		b = b[1];
+
+		return a > b ? -1 : (a < b ? 1 : 0);
+	});
+
+	jQuery('#leaderboard').html('');
+	template = Handlebars.compile(jQuery('#leaderboard-template').html());
+
+	for (i = 0; i < 10; i += 1) {
+		key = tuples[i][0];
+		value = tuples[i][1];
+
+		jQuery('#leaderboard').append(template({nick: key, karma: value, rank: (i + 1)}));
+		topmembers.push(key);
+	}
+
+	url_tmpl = Handlebars.compile(config.SEARCH_TEMPLATE);
+	jQuery('#leaderboard_link').attr('href', url_tmpl({nick: topmembers.join(',')}));
+}
+
 function parseURLSettings() {
 	'use strict';
+
+	var leaderboard_promise;
+
+	leaderboard_promise = jQuery.ajax({
+		url: config.URL_MOST_RECENT,
+		dataType: 'jsonp'
+	});
+
+	leaderboard_promise.then(update_leaderboard);
 
 	if (getURLParameter('nick') !== undefined) {
 		jQuery('#nick').val(getURLParameter('nick'));
 	} else {
-		jQuery('#nick').value('oorgle');
+		jQuery('#nick').val('oorgle');
 		updateURL();
 	}
 
