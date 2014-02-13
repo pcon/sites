@@ -1,9 +1,8 @@
 /*jslint browser: true, regexp: true */
 /*global google, Bloodhound, Handlebars, config, moment, jQuery, $ */
 
-var parsers, typeaheadData;
+var parsers;
 parsers = {};
-typeaheadData = [];
 
 function getURLParameter(sParam) {
 	'use strict';
@@ -58,33 +57,6 @@ function addNick() {
 
 	return false;
 }
-
-function failedTypeahead() {
-	'use strict';
-}
-
-function populateTypeahead(data) {
-	'use strict';
-
-	typeaheadData = [];
-
-	jQuery.each(data.rows, function (i, item) {
-		typeaheadData.push(item.key);
-	});
-}
-
-function fetchTypeahead() {
-	'use strict';
-	var nicklistPromise;
-
-	nicklistPromise = jQuery.ajax({
-		url: config.VALUE_LIST_URL,
-		dataType: 'jsonp'
-	});
-
-	nicklistPromise.then(populateTypeahead, failedTypeahead);
-}
-
 
 function failedKarma() {
 	'use strict';
@@ -186,8 +158,6 @@ function fetchKarma() {
 	});
 
 	karmaPromise.then(parsers[config.TYPE], failedKarma);
-
-	fetchTypeahead();
 }
 
 function parseSettings() {
