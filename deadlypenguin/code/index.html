@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Code &raquo; Deadlypenguin</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Coding &amp; Random Projects</h1>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title"><a href="/code/quotes/">Quotes</a></h3>
+					</div>
+					<div class="panel-body">
+						In the #salesforce IRC channel, people can quote other users.  The quotes are then stored, transferred to a couchDB backend (running on <a href="http://cloudant.com">cloudant</a>), then made viewable and searchable <a href="/code/quotes/">here</a>.
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title"><a href="/code/karma/">Karma</a></h3>
+					</div>
+					<div class="panel-body">
+						In the #salesforce IRC channel, you can ++ or -- people or things and this is known as <a href="/code/karma/">karma</a>.  This karma data is dumped nightly and pushed to a couchDB backend (running on <a href="http://cloudant.com">cloudant</a>).  The <a href="/code/karma/">karma app</a> lets users see karma over time as well as the most recent "leaderboard" for top 10 karma spots
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title"><a href="/code/irclog/">IRC Log</a></h3>
+					</div>
+					<div class="panel-body">
+						Since not all the people in the #salesforce IRC channel use clients that are always connected, I was requested to create a way for people to view what happened in the channel while they were gone.  For this, data is collected via a <a href="http://www-archive.mozilla.org/projects/mozbot/">Mozbot</a> IRC bot and pushed to <a href="http://cloudant.com">Cloudant</a> every 30 minutes.  The data is then made accessible and searchable via <a href="/code/irclog/">this</a> web front-end
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
