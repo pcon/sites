@@ -17,7 +17,7 @@
 		<div class="text-center alert alert-error"><i class="icon-ban-circle icon-large"></i> Failed to load karma.</div>
 	</script>
 	<script id="leaderboard-template" type="text/x-handlebars-template">
-		<li class="list-group-item"><div class="rank">{{ rank }}</div><span class="badge">{{ karma }}</span>{{ nick }}</li>
+		<li class="list-group-item"><div class="rank">{{ rank }}</div><span class="badge">{{ karma }}</span><a href="/code/karma/?nick={{ nick }}">{{ nick }}</a></li>
 	</script>
 </head>
 <body>
