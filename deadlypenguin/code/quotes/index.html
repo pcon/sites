@@ -45,7 +45,7 @@
 		</script>
 		<script id="quotee-template" type="text/x-handlebars-template">
 			{{#each quotees}}
-				<li><a href="#nick={{nick}}"><span class="badge pull-right">{{count}}</span>{{nick}}</a></li>
+				<li><a href="#nick={{nick}}" onclick="searchByNick('{{nick}}')"><span class="badge pull-right">{{count}}</span>{{nick}}</a></li>
 			{{/each}}
 		</script>
 	</head>
