@@ -258,6 +258,59 @@ function loadNicks() {
 	nick_promise.then(populateNicks, failedNicks);
 }
 
+function failedQuotees(data) {
+	'use strict';
+
+	jQuery('#top_quotees').remove();
+}
+
+function populateTopQuotees(data) {
+	'use strict';
+	var i, tuples, q_data, quotee, template;
+
+	tuples = [];
+
+	for (i = 0; i < data.rows.length; i += 1) {
+		tuples.push([data.rows[i].key, data.rows[i].value]);
+	}
+
+	tuples.sort(function (a, b) {
+		a = a[1];
+		b = b[1];
+
+		return a > b ? -1 : (a < b ? 1 : 0);
+	});
+
+	q_data = {};
+	q_data.quotees = [];
+
+	for (i = 0; i < 10; i += 1) {
+		quotee = {};
+		quotee.nick = tuples[i][0];
+		quotee.count = tuples[i][1];
+
+		q_data.quotees.push(quotee);
+	}
+
+	template = Handlebars.compile(jQuery('#quotee-template').html());
+
+	jQuery('#top_quotees').append(template(q_data));
+}
+
+function loadTopQuotees() {
+	'use strict';
+	var url, quotee_promise;
+
+	url = config.NICK_COUNT;
+
+	quotee_promise = jQuery.ajax({
+		url: url,
+		dataType: 'jsonp'
+	});
+
+	quotee_promise.then(populateTopQuotees, failedQuotees);
+}
+
 handlers.page = function (value) {
 	'use strict';
 	config.LIST_OFFSET = config.LIST_LIMIT * (parseInt(value, 10) - 1);
@@ -292,6 +345,7 @@ jQuery(document).ready(function () {
 	var hash, param, value;
 
 	loadNicks();
+	loadTopQuotees();
 
 	if (window.location.hash) {
 		hash = window.location.hash.split('#')[1].split('&')[0].split('=');
