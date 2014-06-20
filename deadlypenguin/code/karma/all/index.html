@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>IRC Karma &raquo; Deadlypenguin</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="karma.css" />
+
+	<script id="list-template" type="text/x-handlebars-template">
+		{{#each all_nicks}}
+			<tr><td width="5%">{{ nick }}</td><td width="95%"><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="10" style="width: {{ percent }}%;">{{ karma }}</div></div></td></tr>
+		{{/each}}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<h1 id="log-title">IRC Karma List</h1>
+		<div class="row">
+			<div class="col-md-12">
+				<table id="karma_list">
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="/j/handlebars.js"></script>
+	<script type="text/javascript" src="/j/moment.min.js"></script>
+	<script type="text/javascript" src="config.js"></script>
+	<script type="text/javascript" src="karma.js"></script>
+	<script type="text/javascript" src="/j/ga.js"></script>
+</body>
+</html>

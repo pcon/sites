@@ -43,6 +43,11 @@
 				</ul>
 			{{/if}}
 		</script>
+		<script id="quotee-template" type="text/x-handlebars-template">
+			{{#each quotees}}
+				<li><a href="#nick={{nick}}"><span class="badge pull-right">{{count}}</span>{{nick}}</a></li>
+			{{/each}}
+		</script>
 	</head>
 	<body>
 		<div class="container">
@@ -85,6 +90,12 @@
 						<li class="nav-header">Other fun tools</li>
 						<li><a href="/code/karma/">Karma Graph</a></li>
 						<li><a href="/code/irclog/">IRC Log</a></li>
+					</ul>
+					<ul class="nav nav-list" id="top_quotees">
+						<li class="divider"></li>
+						<li class="divider"></li>
+						<li class="divider"></li>
+						<li class="nav-header">Top quotees</li>
 					</ul>
 				</div>
 				<div class="col-md-9 hidden-sm hidden-xs" id="content"></div>
