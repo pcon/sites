@@ -47,7 +47,7 @@
 			var setId = "<?php echo $setId; ?>";
 			var nsId = "<?php echo $nsId; ?>";
 			var APIkey = "6b11576331fc0406bbb316a06ae26061";
-			generateGallery('http://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key='+APIkey+'&photoset_id='+setId+'&extras=media%2Curl_sq%2Curl_m&format=json&jsoncallback=?');
+			generateGallery('https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key='+APIkey+'&photoset_id='+setId+'&extras=media%2Curl_sq%2Curl_m&format=json&jsoncallback=?');
 			//generateGallery('http://api.flickr.com/services/feeds/photoset.gne?set='+setId+'&nsid='+nsId+'&lang=en-us&format=json&jsoncallback=?');
 		});	
 	</script>
